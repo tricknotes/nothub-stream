@@ -19,6 +19,7 @@ class SocketIOListener extends EventEmitter
         server.updateSchema(socket.id, query)
       socket.on 'disconnect', ->
         server.disconnect(socket.id)
+        self.emit('disconnect', null, socket.id)
 
   close: () ->
     @io.server.close()
