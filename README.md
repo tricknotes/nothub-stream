@@ -1,5 +1,7 @@
 # NotHub Stream
 
+[![Build Status](https://secure.travis-ci.org/tricknotes/nothub-stream.png)](http://travis-ci.org/tricknotes/nothub-stream)
+
 NotHub Stream is a Server of [NotHub](http://nothub.org)
 
 ## Setup
