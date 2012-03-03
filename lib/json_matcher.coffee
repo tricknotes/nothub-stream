@@ -53,7 +53,7 @@ class JsonMatcher
 
 ###
 Example for adding custom matcher.
-> JsonMatcher.regist, 'custom', matcher
+> JsonMatcher.regist 'custom', matcher
 ###
 
 module.exports = JsonMatcher
