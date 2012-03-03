@@ -6,7 +6,7 @@ server.on 'error', (err, detail) ->
 
 stream_config = require('./config/stream')
 
-io_listener = new NotHubStream.Listeners.SocketIOListener stream_config['socket.io'].port
+io_listener = new NotHubStream.Listeners.SocketIOListener(stream_config['socket.io'].port)
 io_listener.listen(server)
 
 ws_listener = new NotHubStream.Listeners.WebSocketListener(stream_config.websocket)
