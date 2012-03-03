@@ -29,7 +29,7 @@ describe 'Stream', ->
       for count in [1...40]
         stream.send({count})
       expect(i).to.be(39)
-      
+
       stream.send({message: 'GOOD'})
       expect(i).to.be(39)
 
