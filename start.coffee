@@ -18,5 +18,5 @@ crawler = new NotHubStream.Crawler()
 crawler.on 'receive', (err, data) ->
   server.send(data)
 crawler.on 'error', (err, data) ->
-  console.log('Unexpected error caught: ', e, data)
+  console.log('Unexpected error caught: ', err, data)
 crawler.crawl(1000)
