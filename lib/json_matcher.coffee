@@ -5,10 +5,8 @@ class JsonMatcher
     query ||= @query
     for name, value of query
       if name[0] == '$'
-        query_name = name[1..-1]
-        return false unless @__proto__.hasOwnProperty(query_name)
-        advanced_query = this[query_name]
-        return advanced_query(target, value)
+        queryName = name[1..-1]
+        return JsonMatcher.advancedQueries[queryName]?(target, value)
 
       if 'object' == typeof value
         return false unless @match(target[name], value)
@@ -16,35 +14,46 @@ class JsonMatcher
         return false unless target[name] == value
     true
 
-  # advanced queries
+  @advancedQueries: Object.create(null)
 
-  in: (target, query) ->
+  @regist: (name, matcher) ->
+    @advancedQueries[name] = matcher
+
+  @regist 'match', this::match
+
+  # advanced queries
+  @regist 'in', (target, query) ->
     return false unless Array.isArray(query)
     query.indexOf(target) >= 0
 
-  exists: (target, query) ->
+  @regist 'exists', (target, query) ->
     target? ^ !query
 
-  ne: (target, query) ->
+  @regist 'ne', (target, query) ->
     target != query
 
-  nin: (target, query) =>
+  @regist 'nin', (target, query) ->
     return false unless Array.isArray(query)
     !@in(target, query)
 
-  contains: (target, query) ->
+  @regist 'contains', (target, query) ->
     return false unless target && 'function' == typeof target.indexOf
     index = target.indexOf(query)
     index >= 0 && target[index] == query
 
-  or: (target, query) =>
+  @regist 'or', (target, query) ->
     for q in query
       return true if @match(target, q)
     false
 
-  and: (target, query) =>
+  @regist 'and', (target, query) ->
     for q in query
       return false unless @match(target, q)
     true
+
+###
+Example for adding custom matcher.
+> JsonMatcher.regist, 'custom', matcher
+###
 
 module.exports = JsonMatcher
