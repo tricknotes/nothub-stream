@@ -14,8 +14,7 @@ describe 'SocketIOListener', ->
 
   beforeEach ->
     server = new Server()
-    listener = new SocketIOListener ++port, (io) ->
-      io.set('log level', 1)
+    listener = new SocketIOListener ++port, {log: false}
 
   afterEach ->
     listener.close()

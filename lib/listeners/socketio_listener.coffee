@@ -2,11 +2,10 @@ EventEmitter = require('events').EventEmitter
 sio = require('socket.io')
 
 class SocketIOListener extends EventEmitter
-  constructor: (@port, @configure) ->
+  constructor: (@port, @config) ->
 
   listen: (server) ->
-    @io = sio.listen(@port)
-    @configure?(@io)
+    @io = sio.listen(@port, @config)
     self = this
     @io.sockets.on 'connection', (socket) ->
       socket.on 'ping', (data) ->
