@@ -25,7 +25,7 @@ class Crawler extends EventEmitter
     res.on 'data', (chunk) ->
       data += chunk
     res.on 'end', ->
-      events = self.parseData(data)
+      events = self.parseData(data) || []
       for event in events
         self.stream.send(event)
 
