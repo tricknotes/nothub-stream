@@ -1,7 +1,7 @@
 {
     "author": "tricknotes <tricknotes.rs@gmail.com> (https://github.com/tricknotes)"
   , "name": "nothub-stream"
-  , "version": "0.1.7"
+  , "version": "0.1.8"
   , "homepage": "http://nothub.org"
   , "repository": {
       "url": "git://github.com/tricknotes/nothub-stream.git"
