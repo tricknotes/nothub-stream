@@ -1,7 +1,8 @@
 nock = require('nock')
 expect = require('expect.js')
 WebSocket = require('ws')
-{Crawler, Server, Listeners: {WebSocketListener}} = require('../../')
+{Crawler} = require('github-events-crawler')
+{Server, Listeners: {WebSocketListener}} = require('../../')
 
 describe 'NotHub Stream', ->
   crawler = null
@@ -15,12 +16,12 @@ describe 'NotHub Stream', ->
     listener = new WebSocketListener(port: ++port)
 
     listener.listen(server)
-    crawler.on 'receive', (err, data) ->
+    crawler.on 'event', (data) ->
       server.send(data)
 
     nock('https://api.github.com')
       .get('/events')
-      .reply(200, [{type: 'OK'}])
+      .reply(200, [{id: 1, type: 'OK'}])
 
   afterEach ->
     crawler.removeAllListeners()
@@ -33,9 +34,9 @@ describe 'NotHub Stream', ->
     ws = new WebSocket('ws://localhost:'+port)
     ws.on 'open', ->
       ws.send(JSON.stringify({type: 'query'}))
-      crawler.fetch()
+      crawler.crawl()
     ws.on 'message', (data) ->
-      expect(data).to.eql('{"type":"OK"}')
+      expect(data).to.eql('{"id":1,"type":"OK"}')
       done()
 
   it 'should receive data matched to own query', (done) ->
@@ -43,15 +44,15 @@ describe 'NotHub Stream', ->
     ws.on 'open', ->
       listener.once 'query-update', (err, query) ->
         expect(query).to.eql({type: 'NG'})
-        crawler.fetch()
+        crawler.crawl()
         listener.once 'query-update', (err, query) ->
           expect(query).to.eql({type: 'OK'})
-          crawler.fetch()
+          crawler.crawl()
         ws.send(JSON.stringify({type: 'query', query: {type: 'OK'}}))
 
       ws.send(JSON.stringify({type: 'query', query: {type: 'NG'}}))
     ws.on 'message', (data) ->
-      expect(data).to.eql('{"type":"OK"}')
+      expect(data).to.eql('{"id":1,"type":"OK"}')
       done()
 
   it 'should receive data own interested', (done) ->
@@ -63,7 +64,7 @@ describe 'NotHub Stream', ->
         ws2.on 'open', ->
           ws2.send(JSON.stringify({type: 'query', query: {type: 'OK'}}))
           listener.once 'query-update', (err, query) ->
-            crawler.fetch()
+            crawler.crawl()
         ws2.on 'message', ->
           done()
     ws1.on 'message', ->
