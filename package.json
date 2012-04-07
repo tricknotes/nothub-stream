@@ -12,7 +12,7 @@
   }
   , "scripts": {
       "start": "./node_modules/.bin/coffee ./start.coffee"
-    , "test": "./node_modules/.bin/mocha --colors --reporter spec test/*/*.test.* test/*.test.*"
+    , "test": "./node_modules/.bin/mocha -r coffee-script --colors --reporter spec test/*/*.test.* test/*.test.*"
   }
   , "dependencies": {
       "coffee-script": "~> 1.2.0"
