@@ -11,8 +11,8 @@
       "node": "~0.6.6"
   }
   , "scripts": {
-      "start": "./node_modules/coffee-script/bin/coffee ./start.coffee"
-    , "test": "./node_modules/mocha/bin/mocha --colors --reporter spec test/*/*.test.* test/*.test.*"
+      "start": "./node_modules/.bin/coffee ./start.coffee"
+    , "test": "./node_modules/.bin/mocha --colors --reporter spec test/*/*.test.* test/*.test.*"
   }
   , "dependencies": {
       "coffee-script": "~> 1.2.0"
