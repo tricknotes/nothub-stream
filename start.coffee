@@ -1,5 +1,4 @@
 NotHubStream = require('./')
-{Crawler} = require('github-events-crawler')
 
 server = new NotHubStream.Server()
 server.on 'error', (err, detail) ->
@@ -15,7 +14,10 @@ ws_listener.on 'error', (err, data) ->
   console.log(['Unexpected request: ', err, data])
 ws_listener.listen(server)
 
-crawler = new Crawler()
-crawler.on 'event', (data) ->
-  server.send(data)
-crawler.start()
+crawler = new NotHubStream.Crawler()
+crawler.on 'receive', (err, data) ->
+  unless err
+    server.send(data)
+crawler.on 'error', (err, data) ->
+  console.log('Unexpected error caught: ', err, data)
+crawler.crawl(1000)
