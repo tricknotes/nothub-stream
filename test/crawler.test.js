@@ -29,7 +29,6 @@ describe('Crawler', function() {
   describe('#parseData()', function() {
     it('should parse data', function() {
       var data = crawler.parseData('[{"number": 1}, {"number": 2}]');
-
       expect(data).to.have.length(2);
       expect(data[0]).to.eql({ number: 2 });
       expect(data[1]).to.eql({ number: 1 });
