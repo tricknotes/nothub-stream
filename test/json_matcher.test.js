@@ -33,6 +33,13 @@ describe('JsonMatcher', function() {
     });
   });
 
+  describe('#match() with nested noexist matcher', function() {
+    it('should be false', function() {
+      matcher = new JsonMatcher({ a: { b: 'oh...' } });
+      expect(matcher.match({})).to.be(false);
+    });
+  });
+
   describe('#match() with advanced queries', function() {
     describe('#in()', function() {
       beforeEach(function() {
