@@ -37,6 +37,14 @@ describe('JsonMatcher', function() {
     it('should be false', function() {
       matcher = new JsonMatcher({ a: { b: 'oh...' } });
       expect(matcher.match({})).to.be(false);
+
+    });
+  });
+
+  describe('#match() with noexist match as object', function() {
+    it('should be false', function() {
+      matcher = new JsonMatcher({ "a": { "b": {} } });
+      expect(matcher.match({})).to.be(false);
     });
   });
 
