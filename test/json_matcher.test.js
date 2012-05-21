@@ -145,16 +145,19 @@ describe('JsonMatcher', function() {
     });
 
     describe('#contains()', function() {
-      beforeEach(function() {
-        matcher = new JsonMatcher({ value: { '$contains': 'a' } });
-      });
-
       it('should be true when value contained', function() {
+        matcher = new JsonMatcher({ value: { '$contains': 'a' } });
         expect(matcher.match({ value: 'cba' })).to.be(true);
       });
 
       it('should be false when no value contained', function() {
+        matcher = new JsonMatcher({ value: { '$contains': 'a' } });
         expect(matcher.match({ value: 'bcd' })).to.be(false);
+      });
+
+      it('should be true with multiple query', function() {
+        matcher = new JsonMatcher({ value: { '$contains': 'abc' } });
+        expect(matcher.match({ value: 'abcd' })).to.be(true);
       });
     });
 
