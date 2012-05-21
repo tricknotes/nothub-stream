@@ -159,6 +159,11 @@ describe('JsonMatcher', function() {
         matcher = new JsonMatcher({ value: { '$contains': 'abc' } });
         expect(matcher.match({ value: 'abcd' })).to.be(true);
       });
+
+      it('should be true with partial query', function() {
+        matcher = new JsonMatcher({ a: {'$contains': {b: 'OK'}} });
+        expect(matcher.match({ a: [{ b: 'OK', c: 'HOGE' }] })).to.be(true);
+      });
     });
 
     describe('#contains() with invalid value', function() {
