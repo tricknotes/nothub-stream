@@ -37,7 +37,6 @@ describe('JsonMatcher', function() {
     it('should be false', function() {
       matcher = new JsonMatcher({ a: { b: 'oh...' } });
       expect(matcher.match({})).to.be(false);
-
     });
   });
 
