@@ -34,7 +34,9 @@ describe('NotHub Stream', function() {
     var ws = new WebSocket('ws://localhost:' + port);
     ws.on('open', function() {
       ws.send(JSON.stringify({ type: 'query' }));
-      crawler.fetch();
+      process.nextTick(function() {
+        crawler.fetch();
+      });
     });
     ws.on('message', function(data) {
       expect(data).to.eql('{"type":"OK"}');
@@ -47,7 +49,9 @@ describe('NotHub Stream', function() {
     ws.on('open', function() {
       listener.once('query-update', function(err, query) {
         expect(query).to.eql({ type: 'NG' });
-        crawler.fetch();
+        process.nextTick(function() {
+          crawler.fetch();
+        });
         listener.once('query-update', function(err, query) {
           expect(query).to.eql({ type: 'OK' });
           crawler.fetch();
