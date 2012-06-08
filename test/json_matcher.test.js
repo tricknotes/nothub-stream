@@ -178,6 +178,20 @@ describe('JsonMatcher', function() {
       });
     });
 
+    describe('#regexp', function() {
+      beforeEach(function() {
+        matcher = new JsonMatcher({name: {'$regexp': 'hoge$'}});
+      });
+
+      it('should return true with matched regexp', function() {
+        expect(matcher.match({name: 'ahoge'})).to.be(true);
+      });
+
+      it('should return false with unmatched regexp', function() {
+        expect(matcher.match({name: 'hoge!'})).to.be(false);
+      });
+    });
+
     describe('#or()', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({ name: { '$or': ['Jyotaro', 'Jyosuke', 'Giorno'] } });
