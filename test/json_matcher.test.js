@@ -92,27 +92,23 @@ describe('JsonMatcher', function() {
         expect(A.exists(undefined, true)).not.to.be.ok();
       });
     });
-  });
 
-  describe('#match() with advanced queries', function() {
     describe('#ne()', function() {
-      beforeEach(function() {
-        matcher = new JsonMatcher({ name: { '$ne': 'Yoshikage KIRA' } });
-      });
-
       it('should be true when given no property', function() {
-        expect(matcher.match({ stand: 'Killer Queen' })).to.be(true);
+        expect(A.ne(null, 'Yoshikage KIRA')).to.be(true);
       });
 
       it('should be true when given unmatched value', function() {
-        expect(matcher.match({ name: 'Koichi HIROSE' })).to.be(true);
+        expect(A.ne('Koichi HIROSE', 'Yoshikage KIRA')).to.be(true);
       });
 
       it('should be false when given matched value', function() {
-        expect(matcher.match({ name: 'Yoshikage KIRA' })).to.be(false);
+        expect(A.ne('Yoshikage KIRA', 'Yoshikage KIRA')).to.be(false);
       });
     });
+  });
 
+  describe('#match() with advanced queries', function() {
     describe('#nin()', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({ name: { '$nin': ['Jyotaro', 'Jyosuke', 'Giorno'] } });
