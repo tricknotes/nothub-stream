@@ -201,20 +201,14 @@ describe('JsonMatcher', function() {
         expect(matcher.match({ value: 'd' })).to.be(false);
       });
     });
-  });
 
-  describe('#match() with advanced queries', function() {
     describe('#and()', function() {
-      beforeEach(function() {
-        matcher = new JsonMatcher({ value: { '$and': ['a'] } });
-      });
-
       it('should be true when conained value', function() {
-        expect(matcher.match({ value: 'a' })).to.be(true);
+        expect(A.and('a', ['a'])).to.be(true);
       });
 
       it('should be false when no conained value', function() {
-        expect(matcher.match({ value: 'b' })).to.be(false);
+        expect(A.and('b', ['a'])).to.be(false);
       });
     });
 
@@ -234,7 +228,9 @@ describe('JsonMatcher', function() {
         expect(matcher.match({ value: 'c' })).to.be(false);
       });
     });
+  });
 
+  describe('#match() with advanced queries', function() {
     describe('invalid queries', function() {
       it('should be false with unmatch matcher', function() {
         matcher = new JsonMatcher({ value: { '$unmatch': 'ng' } });
