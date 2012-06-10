@@ -230,17 +230,15 @@ describe('JsonMatcher', function() {
     });
   });
 
-  describe('#match() with advanced queries', function() {
-    describe('invalid queries', function() {
-      it('should be false with unmatch matcher', function() {
-        matcher = new JsonMatcher({ value: { '$unmatch': 'ng' } });
-        expect(matcher.match({ value: 'ng' })).to.be(false);
-      });
+  describe('invalid queries', function() {
+    it('should be false with unmatch matcher', function() {
+      matcher = new JsonMatcher({ value: { '$unmatch': 'ng' } });
+      expect(matcher.match({ value: 'ng' })).to.be(false);
+    });
 
-      it('should be false with Object property', function() {
-        matcher = new JsonMatcher({ value: { '$toString': 'str' } });
-        expect(matcher.match({ value: 'str' })).to.be(false);
-      });
+    it('should be false with Object property', function() {
+      matcher = new JsonMatcher({ value: { '$toString': 'str' } });
+      expect(matcher.match({ value: 'str' })).to.be(false);
     });
   });
 });
