@@ -74,31 +74,27 @@ describe('JsonMatcher', function() {
         expect(A.in('null', null)).to.be(false);
       });
     });
+
+    describe('#exists()', function() {
+      it('should be true when given existing value', function() {
+        expect(A.exists('札幌市北区', true)).to.be.ok();
+      });
+
+      it('should not be true when given `null`', function() {
+        expect(A.exists(null, true)).not.to.be.ok();
+      });
+
+      it('should be true when given `0`', function() {
+        expect(A.exists(0, true)).to.be.ok();
+      });
+
+      it('should not be true when given `undefined`', function() {
+        expect(A.exists(undefined, true)).not.to.be.ok();
+      });
+    });
   });
 
   describe('#match() with advanced queries', function() {
-    describe('#exists()', function() {
-      it('should be true when given existing value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': true } });
-        expect(matcher.match({ address: '札幌市北区' })).to.be(true);
-      });
-
-      it('should be true when given no existing value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': false } });
-        expect(matcher.match({ tel: '000-0000-0000' })).to.be(true);
-      });
-
-      it('should be false when given existing value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': true } });
-        expect(matcher.match({ tel: '000-0000-0000' })).to.be(false);
-      });
-
-      it('should be false when given existing no value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': false } });
-        expect(matcher.match({ address: '札幌市北区' })).to.be(false);
-      });
-    });
-
     describe('#ne()', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({ name: { '$ne': 'Yoshikage KIRA' } });
