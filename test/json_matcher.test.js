@@ -106,34 +106,33 @@ describe('JsonMatcher', function() {
         expect(A.ne('Yoshikage KIRA', 'Yoshikage KIRA')).to.be(false);
       });
     });
-  });
 
-  describe('#match() with advanced queries', function() {
     describe('#nin()', function() {
       beforeEach(function() {
-        matcher = new JsonMatcher({ name: { '$nin': ['Jyotaro', 'Jyosuke', 'Giorno'] } });
+        query = ['Jyotaro', 'Jyosuke', 'Giorno'];
       });
 
       it('should be true when given no contained value', function() {
-        expect(matcher.match({ name: 'Jonathan' })).to.be(true);
+        expect(A.nin('Jonathan', query)).to.be(true);
       });
 
       it('should be false when given contained value', function() {
-        expect(matcher.match({ name: 'Jyotaro' })).to.be(false);
+        expect(A.nin('Jyotaro', query)).to.be(false);
       });
     });
 
     describe('#nin() with invalid value', function() {
       it('should return false with Number', function() {
-        matcher = new JsonMatcher({ value: { '$nin': 123 } });
-        expect(matcher.match({ value: '1' })).to.be(false);
+        expect(A.nin('1', 123)).to.be(false);
       });
 
       it('should return false with null', function() {
-        matcher = new JsonMatcher({ value: { '$nin': null } });
-        expect(matcher.match({ value: 'null' })).to.be(false);
+        expect(A.nin('null', null)).to.be(false);
       });
     });
+  });
+
+  describe('#match() with advanced queries', function() {
 
     describe('#contains()', function() {
       it('should be true when value contained', function() {
