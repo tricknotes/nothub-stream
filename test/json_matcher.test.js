@@ -159,23 +159,19 @@ describe('JsonMatcher', function() {
         expect(A.contains('null', null)).to.be(false);
       });
     });
-  });
 
-  describe('#match() with advanced queries', function() {
     describe('#regexp', function() {
-      beforeEach(function() {
-        matcher = new JsonMatcher({name: {'$regexp': 'hoge$'}});
-      });
-
       it('should return true with matched regexp', function() {
-        expect(matcher.match({name: 'ahoge'})).to.be(true);
+        expect(A.regexp('ahoge', 'hoge$')).to.be(true);
       });
 
       it('should return false with unmatched regexp', function() {
-        expect(matcher.match({name: 'hoge!'})).to.be(false);
+        expect(A.regexp('hoge!', 'hoge$')).to.be(false);
       });
     });
+  });
 
+  describe('#match() with advanced queries', function() {
     describe('#or()', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({ name: { '$or': ['Jyotaro', 'Jyosuke', 'Giorno'] } });
