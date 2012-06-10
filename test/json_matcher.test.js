@@ -47,37 +47,36 @@ describe('JsonMatcher', function() {
     });
   });
 
-  describe('#match() with advanced queries', function() {
+  describe('advanced queries', function() {
+    var A = JsonMatcher.advancedQueries
+      , query
+
     describe('#in()', function() {
       beforeEach(function() {
-        matcher = new JsonMatcher({ greeting: { '$in': ['hi', 'ohayo'] } });
+        query = ['hi', 'ohayo'];
       });
 
       it('should be true when given contained value', function() {
-        expect(matcher.match({ greeting: 'hi' })).to.be(true);
+        expect(A.in('hi', query)).to.be(true);
       });
 
       it('should be false when given not contained value', function() {
-        expect(matcher.match({ greeting: 'nihao' })).to.be(false);
-      });
-
-      it('should be false when given no property', function() {
-        expect(matcher.match({ politeness: 'hi' })).to.be(false);
+        expect(A.in('nihao', query)).to.be(false);
       });
     });
 
-    describe('#in with invalid value', function() {
+    describe('#in() with invalid value', function() {
       it('should return false with Number', function() {
-        matcher = new JsonMatcher({ value: { '$in': 123 } });
-        expect(matcher.match({ value: '1' })).to.be(false);
+        expect(A.in('1', 123)).to.be(false);
       });
 
       it('should return false with null', function() {
-        matcher = new JsonMatcher({ value: { '$in': null } });
-        expect(matcher.match({ value: 'null' })).to.be(false);
+        expect(A.in('null', null)).to.be(false);
       });
     });
+  });
 
+  describe('#match() with advanced queries', function() {
     describe('#exists()', function() {
       it('should be true when given existing value', function() {
         matcher = new JsonMatcher({ address: { '$exists': true } });
