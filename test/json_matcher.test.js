@@ -169,20 +169,18 @@ describe('JsonMatcher', function() {
         expect(A.regexp('hoge!', 'hoge$')).to.be(false);
       });
     });
-  });
 
-  describe('#match() with advanced queries', function() {
     describe('#or()', function() {
       beforeEach(function() {
-        matcher = new JsonMatcher({ name: { '$or': ['Jyotaro', 'Jyosuke', 'Giorno'] } });
+        query = ['Jyotaro', 'Jyosuke', 'Giorno'];
       });
 
       it('should be true when given contained value', function() {
-        expect(matcher.match({ name: 'Jyotaro' })).to.be(true);
+        expect(A.or('Jyotaro', query)).to.be(true);
       });
 
       it('should be false when given no contained value', function() {
-        expect(matcher.match({ name: 'Jonathan' })).to.be(false);
+        expect(A.or('Jonathan', query)).to.be(false);
       });
     });
 
@@ -203,7 +201,9 @@ describe('JsonMatcher', function() {
         expect(matcher.match({ value: 'd' })).to.be(false);
       });
     });
+  });
 
+  describe('#match() with advanced queries', function() {
     describe('#and()', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({ value: { '$and': ['a'] } });
