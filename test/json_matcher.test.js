@@ -130,24 +130,18 @@ describe('JsonMatcher', function() {
         expect(A.nin('null', null)).to.be(false);
       });
     });
-  });
-
-  describe('#match() with advanced queries', function() {
 
     describe('#contains()', function() {
       it('should be true when value contained', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 'a' } });
-        expect(matcher.match({ value: 'cba' })).to.be(true);
+        expect(A.contains('cba', 'a')).to.be(true);
       });
 
       it('should be false when no value contained', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 'a' } });
-        expect(matcher.match({ value: 'bcd' })).to.be(false);
+        expect(A.contains('bcd', 'a')).to.be(false);
       });
 
       it('should be true with multiple query', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 'abc' } });
-        expect(matcher.match({ value: 'abcd' })).to.be(true);
+        expect(A.contains('abcd', 'abc')).to.be(true);
       });
 
       it('should be true with partial query', function() {
@@ -158,16 +152,16 @@ describe('JsonMatcher', function() {
 
     describe('#contains() with invalid value', function() {
       it('should return false with Number', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 123 } });
-        expect(matcher.match({ value: '1234' })).to.be(false);
+        expect(A.contains('1234', 123)).to.be(false);
       });
 
       it('should return false with null', function() {
-        matcher = new JsonMatcher({ value: { '$contains': null } });
-        expect(matcher.match({ value: 'null' })).to.be(false);
+        expect(A.contains('null', null)).to.be(false);
       });
     });
+  });
 
+  describe('#match() with advanced queries', function() {
     describe('#regexp', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({name: {'$regexp': 'hoge$'}});
