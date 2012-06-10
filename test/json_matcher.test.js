@@ -47,117 +47,101 @@ describe('JsonMatcher', function() {
     });
   });
 
-  describe('#match() with advanced queries', function() {
+  describe('advanced queries', function() {
+    var A = JsonMatcher.advancedQueries
+      , query
+
     describe('#in()', function() {
       beforeEach(function() {
-        matcher = new JsonMatcher({ greeting: { '$in': ['hi', 'ohayo'] } });
+        query = ['hi', 'ohayo'];
       });
 
       it('should be true when given contained value', function() {
-        expect(matcher.match({ greeting: 'hi' })).to.be(true);
+        expect(A.in('hi', query)).to.be(true);
       });
 
       it('should be false when given not contained value', function() {
-        expect(matcher.match({ greeting: 'nihao' })).to.be(false);
-      });
-
-      it('should be false when given no property', function() {
-        expect(matcher.match({ politeness: 'hi' })).to.be(false);
+        expect(A.in('nihao', query)).to.be(false);
       });
     });
 
-    describe('#in with invalid value', function() {
+    describe('#in() with invalid value', function() {
       it('should return false with Number', function() {
-        matcher = new JsonMatcher({ value: { '$in': 123 } });
-        expect(matcher.match({ value: '1' })).to.be(false);
+        expect(A.in('1', 123)).to.be(false);
       });
 
       it('should return false with null', function() {
-        matcher = new JsonMatcher({ value: { '$in': null } });
-        expect(matcher.match({ value: 'null' })).to.be(false);
+        expect(A.in('null', null)).to.be(false);
       });
     });
 
     describe('#exists()', function() {
       it('should be true when given existing value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': true } });
-        expect(matcher.match({ address: '札幌市北区' })).to.be(true);
+        expect(A.exists('札幌市北区', true)).to.be.ok();
       });
 
-      it('should be true when given no existing value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': false } });
-        expect(matcher.match({ tel: '000-0000-0000' })).to.be(true);
+      it('should not be true when given `null`', function() {
+        expect(A.exists(null, true)).not.to.be.ok();
       });
 
-      it('should be false when given existing value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': true } });
-        expect(matcher.match({ tel: '000-0000-0000' })).to.be(false);
+      it('should be true when given `0`', function() {
+        expect(A.exists(0, true)).to.be.ok();
       });
 
-      it('should be false when given existing no value', function() {
-        matcher = new JsonMatcher({ address: { '$exists': false } });
-        expect(matcher.match({ address: '札幌市北区' })).to.be(false);
+      it('should not be true when given `undefined`', function() {
+        expect(A.exists(undefined, true)).not.to.be.ok();
       });
     });
 
     describe('#ne()', function() {
-      beforeEach(function() {
-        matcher = new JsonMatcher({ name: { '$ne': 'Yoshikage KIRA' } });
-      });
-
       it('should be true when given no property', function() {
-        expect(matcher.match({ stand: 'Killer Queen' })).to.be(true);
+        expect(A.ne(null, 'Yoshikage KIRA')).to.be(true);
       });
 
       it('should be true when given unmatched value', function() {
-        expect(matcher.match({ name: 'Koichi HIROSE' })).to.be(true);
+        expect(A.ne('Koichi HIROSE', 'Yoshikage KIRA')).to.be(true);
       });
 
       it('should be false when given matched value', function() {
-        expect(matcher.match({ name: 'Yoshikage KIRA' })).to.be(false);
+        expect(A.ne('Yoshikage KIRA', 'Yoshikage KIRA')).to.be(false);
       });
     });
 
     describe('#nin()', function() {
       beforeEach(function() {
-        matcher = new JsonMatcher({ name: { '$nin': ['Jyotaro', 'Jyosuke', 'Giorno'] } });
+        query = ['Jyotaro', 'Jyosuke', 'Giorno'];
       });
 
       it('should be true when given no contained value', function() {
-        expect(matcher.match({ name: 'Jonathan' })).to.be(true);
+        expect(A.nin('Jonathan', query)).to.be(true);
       });
 
       it('should be false when given contained value', function() {
-        expect(matcher.match({ name: 'Jyotaro' })).to.be(false);
+        expect(A.nin('Jyotaro', query)).to.be(false);
       });
     });
 
     describe('#nin() with invalid value', function() {
       it('should return false with Number', function() {
-        matcher = new JsonMatcher({ value: { '$nin': 123 } });
-        expect(matcher.match({ value: '1' })).to.be(false);
+        expect(A.nin('1', 123)).to.be(false);
       });
 
       it('should return false with null', function() {
-        matcher = new JsonMatcher({ value: { '$nin': null } });
-        expect(matcher.match({ value: 'null' })).to.be(false);
+        expect(A.nin('null', null)).to.be(false);
       });
     });
 
     describe('#contains()', function() {
       it('should be true when value contained', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 'a' } });
-        expect(matcher.match({ value: 'cba' })).to.be(true);
+        expect(A.contains('cba', 'a')).to.be(true);
       });
 
       it('should be false when no value contained', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 'a' } });
-        expect(matcher.match({ value: 'bcd' })).to.be(false);
+        expect(A.contains('bcd', 'a')).to.be(false);
       });
 
       it('should be true with multiple query', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 'abc' } });
-        expect(matcher.match({ value: 'abcd' })).to.be(true);
+        expect(A.contains('abcd', 'abc')).to.be(true);
       });
 
       it('should be true with partial query', function() {
@@ -168,41 +152,35 @@ describe('JsonMatcher', function() {
 
     describe('#contains() with invalid value', function() {
       it('should return false with Number', function() {
-        matcher = new JsonMatcher({ value: { '$contains': 123 } });
-        expect(matcher.match({ value: '1234' })).to.be(false);
+        expect(A.contains('1234', 123)).to.be(false);
       });
 
       it('should return false with null', function() {
-        matcher = new JsonMatcher({ value: { '$contains': null } });
-        expect(matcher.match({ value: 'null' })).to.be(false);
+        expect(A.contains('null', null)).to.be(false);
       });
     });
 
     describe('#regexp', function() {
-      beforeEach(function() {
-        matcher = new JsonMatcher({name: {'$regexp': 'hoge$'}});
-      });
-
       it('should return true with matched regexp', function() {
-        expect(matcher.match({name: 'ahoge'})).to.be(true);
+        expect(A.regexp('ahoge', 'hoge$')).to.be(true);
       });
 
       it('should return false with unmatched regexp', function() {
-        expect(matcher.match({name: 'hoge!'})).to.be(false);
+        expect(A.regexp('hoge!', 'hoge$')).to.be(false);
       });
     });
 
     describe('#or()', function() {
       beforeEach(function() {
-        matcher = new JsonMatcher({ name: { '$or': ['Jyotaro', 'Jyosuke', 'Giorno'] } });
+        query = ['Jyotaro', 'Jyosuke', 'Giorno'];
       });
 
       it('should be true when given contained value', function() {
-        expect(matcher.match({ name: 'Jyotaro' })).to.be(true);
+        expect(A.or('Jyotaro', query)).to.be(true);
       });
 
       it('should be false when given no contained value', function() {
-        expect(matcher.match({ name: 'Jonathan' })).to.be(false);
+        expect(A.or('Jonathan', query)).to.be(false);
       });
     });
 
@@ -225,16 +203,12 @@ describe('JsonMatcher', function() {
     });
 
     describe('#and()', function() {
-      beforeEach(function() {
-        matcher = new JsonMatcher({ value: { '$and': ['a'] } });
-      });
-
       it('should be true when conained value', function() {
-        expect(matcher.match({ value: 'a' })).to.be(true);
+        expect(A.and('a', ['a'])).to.be(true);
       });
 
       it('should be false when no conained value', function() {
-        expect(matcher.match({ value: 'b' })).to.be(false);
+        expect(A.and('b', ['a'])).to.be(false);
       });
     });
 
@@ -254,17 +228,17 @@ describe('JsonMatcher', function() {
         expect(matcher.match({ value: 'c' })).to.be(false);
       });
     });
+  });
 
-    describe('invalid queries', function() {
-      it('should be false with unmatch matcher', function() {
-        matcher = new JsonMatcher({ value: { '$unmatch': 'ng' } });
-        expect(matcher.match({ value: 'ng' })).to.be(false);
-      });
+  describe('invalid queries', function() {
+    it('should be false with unmatch matcher', function() {
+      matcher = new JsonMatcher({ value: { '$unmatch': 'ng' } });
+      expect(matcher.match({ value: 'ng' })).to.be(false);
+    });
 
-      it('should be false with Object property', function() {
-        matcher = new JsonMatcher({ value: { '$toString': 'str' } });
-        expect(matcher.match({ value: 'str' })).to.be(false);
-      });
+    it('should be false with Object property', function() {
+      matcher = new JsonMatcher({ value: { '$toString': 'str' } });
+      expect(matcher.match({ value: 'str' })).to.be(false);
     });
   });
 });
