@@ -19,8 +19,8 @@ describe('WebSocketListener', function() {
   });
 
   describe('#listen()', function() {
-    beforeEach(function() {
-      listener.listen(server);
+    beforeEach(function(done) {
+      listener.listen(server, done);
     });
 
     it('should listen port', function(done) {

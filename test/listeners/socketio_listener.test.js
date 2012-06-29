@@ -61,4 +61,10 @@ describe('SocketIOListener', function() {
       });
     });
   });
+
+  describe('#listen() with callback', function() {
+    it('should run callback when socket listened', function(done) {
+      listener.listen(server, done);
+    });
+  });
 });

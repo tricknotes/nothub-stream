@@ -12,11 +12,11 @@ describe('NotHub Stream', function() {
     , listener = null
     , port = 20000
 
-  beforeEach(function() {
+  beforeEach(function(done) {
     crawler = new Crawler();
     server = new Server();
     listener = new WebSocketListener({ port: ++port });
-    listener.listen(server);
+    listener.listen(server, done);
     crawler.on('receive', function(err, data) {
       server.send(data);
     });
