@@ -1,5 +1,5 @@
 var nock = require('nock')
-  , expect = require('expect.js')
+  , expect = require('chai').expect
   , WebSocket = require('ws')
   , NotHubStream = require('../../')
   , Crawler = NotHubStream.Crawler

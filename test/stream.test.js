@@ -1,4 +1,4 @@
-var expect = require('expect.js')
+var expect = require('chai').expect
   , Stream = require('../lib/stream')
 
 describe('Stream', function() {
@@ -38,12 +38,12 @@ describe('Stream', function() {
       for (count = 1; count < 40; count++) {
         stream.send({ count: count });
       }
-      expect(i).to.be(39);
+      expect(i).to.eql(39);
       stream.send({ message: 'GOOD' });
-      expect(i).to.be(39);
+      expect(i).to.eql(39);
       stream.send({ count: 40 });
       stream.send({ message: 'GOOD' });
-      expect(i).to.be(41);
+      expect(i).to.eql(41);
     });
 
     it('should be set when stream initialized', function(done) {

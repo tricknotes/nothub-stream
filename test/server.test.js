@@ -1,4 +1,4 @@
-var expect = require('expect.js')
+var expect = require('chai').expect
   , Server = require('../lib/server')
 
 describe('Server', function() {
@@ -11,7 +11,7 @@ describe('Server', function() {
   describe('#connect()', function() {
     it('should connect client', function() {
       server.connect('test', null, function() {});
-      expect(server.clientCount()).to.be(1);
+      expect(server.clientCount()).to.eql(1);
     });
 
     it('should update query', function() {
@@ -21,7 +21,7 @@ describe('Server', function() {
 
     it('should not update query when query is empty', function() {
       server.connect('test', null, function() {});
-      expect(server.clients['test']).to.be(undefined);
+      expect(server.clients['test']).to.eql(undefined);
     });
   });
 
@@ -29,12 +29,12 @@ describe('Server', function() {
     it('should disconnect client', function() {
       server.connect('test', null, function() {});
       server.disconnect('test');
-      expect(server.clientCount()).to.be(0);
+      expect(server.clientCount()).to.eql(0);
     });
 
     it('should skip with unconnected client', function() {
       server.disconnect('unconnected');
-      expect(server.clientCount()).to.be(0);
+      expect(server.clientCount()).to.eql(0);
     });
   });
 
