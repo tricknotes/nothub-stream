@@ -1,5 +1,5 @@
 var net = require('net')
-  , expect = require('expect.js')
+  , expect = require('chai').expect
   , WebSocket = require('ws')
   , Server = require('../../lib/server')
   , WebSocketListener = require('../../lib/listeners/websocket_listener')
@@ -64,11 +64,11 @@ describe('WebSocketListener', function() {
     it('should remove listener when client disconnected', function(done) {
       var ws = new WebSocket('ws://localhost:' + port);
       ws.on('open', function() {
-        expect(server.clientCount()).to.be(1);
+        expect(server.clientCount()).to.equal(1);
         ws.close();
       });
       ws.on('close', function() {
-        expect(server.clientCount()).to.be(0);
+        expect(server.clientCount()).to.equal(0);
         done();
       });
     });

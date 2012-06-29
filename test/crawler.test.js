@@ -1,4 +1,4 @@
-var expect = require('expect.js')
+var expect = require('chai').expect
   , nock = require('nock')
   , Crawler = require('../lib/crawler')
 
@@ -36,8 +36,8 @@ describe('Crawler', function() {
 
     it('should emit "error" when JSON.parse faild', function(done) {
       crawler.on('error', function(err, data) {
-        expect(data).to.be('{');
-        expect(err.message).to.be('Unexpected end of input');
+        expect(data).to.eql('{');
+        expect(err.message).to.eql('Unexpected end of input');
         done();
       });
       crawler.parseData('{');
@@ -45,8 +45,8 @@ describe('Crawler', function() {
 
     it('should emit "error" when parsed data is not Array', function(done) {
       crawler.on('error', function(err, data) {
-        expect(data).to.be('{}');
-        expect(err.message).to.be('Expected data format is Array');
+        expect(data).to.eql('{}');
+        expect(err.message).to.eql('Expected data format is Array');
         done();
       });
       crawler.parseData('{}');

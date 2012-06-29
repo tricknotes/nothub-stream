@@ -1,6 +1,6 @@
 var net = require('net')
   , http = require('http')
-  , expect = require('expect.js')
+  , expect = require('chai').expect
   , nock = require('nock')
   , io = require('socket.io-client')
   , Server = require('../../lib/server')
@@ -43,7 +43,7 @@ describe('SocketIOListener', function() {
     it('should emit "pong" when "ping" received', function(done) {
       var socket = io.connect('http://localhost:' + port);
       socket.on('pong', function(data) {
-        expect(data).to.be('hi');
+        expect(data).to.eql('hi');
         done();
       });
       socket.emit('ping', 'hi');
@@ -52,11 +52,11 @@ describe('SocketIOListener', function() {
     it('should remove listener when client disconnected', function(done) {
       var socket = io.connect('http://localhost:' + port);
       socket.on('connect', function() {
-        expect(server.clientCount()).to.be(1);
+        expect(server.clientCount()).to.eql(1);
         socket.disconnect();
       });
       listener.on('disconnect', function() {
-        expect(server.clientCount()).to.be(0);
+        expect(server.clientCount()).to.eql(0);
         done();
       });
     });
