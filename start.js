@@ -12,13 +12,13 @@ var NotHubStream = require('./')
   , crawler = new Crawler()
 
 server.on('error', function(err, detail) {
-  console.log('Server caught error: ', err);
+  console.log('Server error: ', err);
 });
 
 ioListener.listen(server);
 
 wsListener.on('error', function(err, data) {
-  console.log(['Unexpected request: ', err, data]);
+  console.log(['Listener error: ', err, data]);
 });
 
 wsListener.listen(server);
@@ -28,7 +28,7 @@ crawler.on('receive', function(err, data) {
 });
 
 crawler.on('error', function(err, data) {
-  console.log('Unexpected error caught: ', err, data);
+  console.log('Crawler error: ', err, data);
 });
 
 crawler.crawl(1000);
