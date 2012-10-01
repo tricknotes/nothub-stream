@@ -18,7 +18,7 @@ server.on('error', function(err, detail) {
 ioListener.listen(server);
 
 wsListener.on('error', function(err, data) {
-  console.log(['\033[31mListener error\033[39m: ', err, data]);
+  console.log('\033[31mListener error\033[39m: ', err, data);
 });
 
 wsListener.listen(server);
