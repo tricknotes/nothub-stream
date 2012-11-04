@@ -31,6 +31,15 @@ describe('Crawler', function() {
       crawler.on('receive', done);
       crawler.fetch();
     });
+
+    it('should accept original query', function(done) {
+      nock('https://api.github.com')
+        .get('/events?greet=hi')
+        .reply(200, [{}]);
+      crawler = new Crawler({query: {greet: 'hi'}});
+      crawler.on('receive', done);
+      crawler.fetch();
+    });
   });
 
   describe('#fetch()', function() {
