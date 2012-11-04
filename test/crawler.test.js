@@ -13,6 +13,26 @@ describe('Crawler', function() {
     nock.cleanAll();
   });
 
+  describe('constructor', function() {
+    it('should accept costom host', function(done) {
+      nock('https://example.com')
+        .get('/events')
+        .reply(200, [{}]);
+      crawler = new Crawler({host: 'example.com'});
+      crawler.on('receive', done);
+      crawler.fetch();
+    });
+
+    it('should accept costom path', function(done) {
+      nock('https://api.github.com')
+        .get('/custom')
+        .reply(200, [{}]);
+      crawler = new Crawler({path: '/custom'});
+      crawler.on('receive', done);
+      crawler.fetch();
+    });
+  });
+
   describe('#fetch()', function() {
     it('should emit "receive" when crawl succeed', function(done) {
       nock('https://api.github.com')
