@@ -9,7 +9,9 @@ var NotHubStream = require('./')
   , server = new Server()
   , ioListener = new SocketIOListener(sioPort)
   , wsListener = new WebSocketListener(wsConfig)
-  , crawler = new Crawler()
+  , crawler = new Crawler({
+    query: process.env['GITHUB_ACCESS_TOKEN']
+  })
 
 server.on('error', function(err, detail) {
   console.log('\033[31mServer error\033[39m: ', err);
