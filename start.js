@@ -1,14 +1,11 @@
 var NotHubStream = require('./')
   , Server = NotHubStream.Server
   , SocketIOListener = NotHubStream.Listeners.SocketIOListener
-  , WebSocketListener = NotHubStream.Listeners.WebSocketListener
   , Crawler = NotHubStream.Crawler
   , streamConfig = require('./config/stream')
   , sioPort = streamConfig['socket.io'].port
-  , wsConfig = streamConfig['websocket']
   , server = new Server()
   , ioListener = new SocketIOListener(sioPort)
-  , wsListener = new WebSocketListener(wsConfig)
   , crawler = new Crawler({
     query: process.env['GITHUB_ACCESS_TOKEN']
   })
@@ -18,12 +15,6 @@ server.on('error', function(err, detail) {
 });
 
 ioListener.listen(server);
-
-wsListener.on('error', function(err, data) {
-  console.log('\033[31mListener error\033[39m: ', err, data);
-});
-
-wsListener.listen(server);
 
 crawler.on('receive', function(err, data) {
   if (!err) server.send(data);
