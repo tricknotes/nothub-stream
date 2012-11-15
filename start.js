@@ -7,7 +7,9 @@ var NotHubStream = require('./')
   , server = new Server()
   , ioListener = new SocketIOListener(sioPort)
   , crawler = new Crawler({
-    query: process.env['GITHUB_ACCESS_TOKEN']
+    query: {
+      access_token: process.env['GITHUB_ACCESS_TOKEN']
+    }
   })
 
 server.on('error', function(err, detail) {
