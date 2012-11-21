@@ -3,16 +3,16 @@ var net = require('net')
   , expect = require('chai').expect
   , nock = require('nock')
   , io = require('socket.io-client')
-  , Server = require('../lib/server')
+  , Service = require('../lib/service')
   , SocketIOListener = require('../lib/socketio_listener')
 
 describe('SocketIOListener', function() {
-  var server = null
+  var service = null
     , listener = null
     , port = 13000
 
   beforeEach(function() {
-    server = new Server();
+    service = new Service();
     listener = new SocketIOListener(++port, { log: false });
   });
 
@@ -22,7 +22,7 @@ describe('SocketIOListener', function() {
 
   describe('#listen()', function() {
     beforeEach(function() {
-      listener.listen(server);
+      listener.listen(service);
     });
 
     it('should listen port', function(done) {
@@ -52,11 +52,11 @@ describe('SocketIOListener', function() {
     it('should remove listener when client disconnected', function(done) {
       var socket = io.connect('http://localhost:' + port);
       socket.on('connect', function() {
-        expect(server.clientCount()).to.eql(1);
+        expect(service.clientCount()).to.eql(1);
         socket.disconnect();
       });
       listener.on('disconnect', function() {
-        expect(server.clientCount()).to.eql(0);
+        expect(service.clientCount()).to.eql(0);
         done();
       });
     });
@@ -64,7 +64,7 @@ describe('SocketIOListener', function() {
 
   describe('#listen() with callback', function() {
     it('should run callback when socket listened', function(done) {
-      listener.listen(server, done);
+      listener.listen(service, done);
     });
   });
 });

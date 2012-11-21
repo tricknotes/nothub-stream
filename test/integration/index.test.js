@@ -3,29 +3,29 @@ var nock = require('nock')
   , io = require('socket.io-client')
   , NotHubStream = require('../../')
   , Crawler = NotHubStream.Crawler
-  , Server = NotHubStream.Server
+  , Service = NotHubStream.Service
   , SocketIOListener = NotHubStream.SocketIOListener
 
 describe('NotHub Stream', function() {
   var crawler = null
-    , server = null
+    , service = null
     , listener = null
     , port = 20000
 
   beforeEach(function(done) {
     crawler = new Crawler();
-    server = new Server();
+    service = new Service();
     listener = new SocketIOListener(++port, { log: false });
-    listener.listen(server, done);
+    listener.listen(service, done);
     crawler.on('receive', function(err, data) {
-      server.send(data);
+      service.send(data);
     });
     nock('https://api.github.com').get('/events').reply(200, [ { type: 'OK' } ]);
   });
 
   afterEach(function() {
     crawler.removeAllListeners();
-    server.removeAllListeners();
+    service.removeAllListeners();
     listener.close();
     nock.cleanAll();
   });
@@ -67,7 +67,7 @@ describe('NotHub Stream', function() {
   it('should receive data own interested', function(done) {
     var socket1 = io.connect('http://localhost:' + port);
     var listener2 = new SocketIOListener(++port, { log: false });
-    listener2.listen(server);
+    listener2.listen(service);
     var socket2 = io.connect('http://localhost:' + port);
 
     socket1.on('gh_event pushed', function() {
