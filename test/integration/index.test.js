@@ -4,19 +4,19 @@ var nock = require('nock')
   , NotHubStream = require('../../')
   , Crawler = NotHubStream.Crawler
   , Service = NotHubStream.Service
-  , SocketIOListener = NotHubStream.SocketIOListener
+  , Sender = NotHubStream.Sender
 
 describe('NotHub Stream', function() {
   var crawler = null
     , service = null
-    , listener = null
+    , sender = null
     , port = 20000
 
   beforeEach(function(done) {
     crawler = new Crawler();
     service = new Service();
-    listener = new SocketIOListener(++port, { log: false });
-    listener.listen(service, done);
+    sender = new Sender(++port, { log: false });
+    sender.listen(service, done);
     crawler.on('receive', function(err, data) {
       service.send(data);
     });
@@ -26,7 +26,7 @@ describe('NotHub Stream', function() {
   afterEach(function() {
     crawler.removeAllListeners();
     service.removeAllListeners();
-    listener.close();
+    sender.close();
     nock.cleanAll();
   });
 
@@ -45,12 +45,12 @@ describe('NotHub Stream', function() {
   it('should receive data matched to own query', function(done) {
     var socket = io.connect('http://localhost:' + port);
     socket.on('connect', function() {
-      listener.once('query-update', function(error, id, query) {
+      sender.once('query-update', function(error, id, query) {
         expect(query).to.eql({ type: 'NG' });
         process.nextTick(function() {
           crawler.fetch();
         });
-        listener.once('query-update', function(error, id, query) {
+        sender.once('query-update', function(error, id, query) {
           expect(query).to.eql({ type: 'OK' });
           crawler.fetch();
         });
@@ -66,12 +66,12 @@ describe('NotHub Stream', function() {
 
   it('should receive data own interested', function(done) {
     var socket1 = io.connect('http://localhost:' + port);
-    var listener2 = new SocketIOListener(++port, { log: false });
-    listener2.listen(service);
+    var sender2 = new Sender(++port, { log: false });
+    sender2.listen(service);
     var socket2 = io.connect('http://localhost:' + port);
 
     socket1.on('gh_event pushed', function() {
-      throw new Error('This listener should not be called.');
+      throw new Error('This sender should not be called.');
     });
     socket2.on('gh_event pushed', function() {
       done();
