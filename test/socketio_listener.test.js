@@ -3,7 +3,7 @@ var net = require('net')
   , expect = require('chai').expect
   , nock = require('nock')
   , io = require('socket.io-client')
-  , Server = require('../../lib/server')
+  , Server = require('../lib/server')
   , SocketIOListener = require('../lib/socketio_listener')
 
 describe('SocketIOListener', function() {
