@@ -32,6 +32,17 @@ $ npm start
 $ npm test
 ```
 
+## Authorization
+
+You can use github authorization, to use advansed rate limit.
+- http://developer.github.com/v3/oauth/
+
+Run using `GITHUB_ACCESS_TOKEN` as an environment variable:
+
+``` sh
+$ GITHUB_ACCESS_TOKEN="Your API Token" npm start
+```
+
 ## License
 
 (The MIT License)
