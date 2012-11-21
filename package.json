@@ -16,7 +16,6 @@
   }
   , "dependencies": {
       "socket.io": "~> 0.9.6"
-    , "ws": "~> 0.4.20"
     , "underscore": "~> 1.4.2"
   }
   , "devDependencies": {
