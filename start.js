@@ -1,6 +1,6 @@
 var NotHubStream = require('./')
   , Server = NotHubStream.Server
-  , SocketIOListener = NotHubStream.Listeners.SocketIOListener
+  , SocketIOListener = NotHubStream.SocketIOListener
   , Crawler = NotHubStream.Crawler
   , streamConfig = require('./config/stream')
   , sioPort = streamConfig['socket.io'].port

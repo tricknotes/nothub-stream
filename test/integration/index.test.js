@@ -4,7 +4,7 @@ var nock = require('nock')
   , NotHubStream = require('../../')
   , Crawler = NotHubStream.Crawler
   , Server = NotHubStream.Server
-  , SocketIOListener = NotHubStream.Listeners.SocketIOListener
+  , SocketIOListener = NotHubStream.SocketIOListener
 
 describe('NotHub Stream', function() {
   var crawler = null
