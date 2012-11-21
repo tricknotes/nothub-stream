@@ -3,9 +3,8 @@ var NotHubStream = require('./')
   , Sender = NotHubStream.Sender
   , Crawler = NotHubStream.Crawler
   , config = require('./config/stream')
-  , sioPort = config['socket.io'].port
   , service = new Service()
-  , sender = new Sender(sioPort)
+  , sender = new Sender(config.port)
   , crawler = new Crawler({
     query: {
       access_token: process.env['GITHUB_ACCESS_TOKEN']
