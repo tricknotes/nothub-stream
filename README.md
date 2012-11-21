@@ -43,6 +43,38 @@ Run using `GITHUB_ACCESS_TOKEN` as an environment variable:
 $ GITHUB_ACCESS_TOKEN="Your API Token" npm start
 ```
 
+## Using on github:enterprise
+
+You can use `nothub` on [GitHub Enterprise](https://enterprise.github.com/) perhaps.
+(I have no testing environments. Sprry:-))
+
+1. Install `nothub` as a node module:
+``` sh
+$ mkdir your_project
+$ cd your_project
+$ npm install https://github.com/tricknotes/nothub-stream
+```
+
+2. Copy script for running nothub:
+``` sh
+$ cp ./node_modules/nothub-stream/start.js ./start.js
+```
+
+3. And edit `./start.js` to use dommain name for your github:enterprise.
+For example:
+``` diff
+- var NotHubStream = require('./')
++ var NotHubStream = require('nothub-stream')
+```
+``` diff
+  crawler = new Crawler({
+    query: {
+      access_token: process.env['GITHUB_ACCESS_TOKEN']
++     host: 'yourdomain.com'
+    }
+  });
+```
+
 ## License
 
 (The MIT License)
