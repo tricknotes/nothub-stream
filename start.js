@@ -11,8 +11,9 @@ var NotHubStream = require('./')
     }
   })
 
-service.on('error', function(error, detail) {
-  console.log('\033[31mService error\033[39m: ', error);
+service.on('error', function(error) {
+  console.log('\033[31mService error\033[39m:');
+  console.log(error.stack || error);
 });
 
 sender.listen(service);
@@ -22,7 +23,8 @@ crawler.on('receive', function(error, data) {
 });
 
 crawler.on('error', function(error, data) {
-  console.log('\033[31mCrawler error\033[39m: ', error, data);
+  console.log('\033[31mCrawler error\033[39m: %j', data);
+  console.log(error.stack || error);
 });
 
 crawler.crawl(1000);
