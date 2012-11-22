@@ -47,7 +47,7 @@ describe('Crawler', function() {
       nock('https://api.github.com')
         .get('/events')
         .reply(200, [{ crawl: 'success' }]);
-      crawler.on('receive', function(err, data) {
+      crawler.on('receive', function(error, data) {
         expect(data).to.eql({ crawl: 'success' });
         done();
       });
@@ -64,18 +64,18 @@ describe('Crawler', function() {
     });
 
     it('should emit "error" when JSON.parse faild', function(done) {
-      crawler.on('error', function(err, data) {
+      crawler.on('error', function(error, data) {
         expect(data).to.eql('{');
-        expect(err.message).to.eql('Unexpected end of input');
+        expect(error.message).to.eql('Unexpected end of input');
         done();
       });
       crawler.parseData('{');
     });
 
     it('should emit "error" when parsed data is not Array', function(done) {
-      crawler.on('error', function(err, data) {
+      crawler.on('error', function(error, data) {
         expect(data).to.eql('{}');
-        expect(err.message).to.eql('Expected data format is Array');
+        expect(error.message).to.eql('Expected data format is Array');
         done();
       });
       crawler.parseData('{}');

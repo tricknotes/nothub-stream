@@ -17,7 +17,7 @@ describe('NotHub Stream', function() {
     service = new Service();
     sender = new Sender(++port, { log: false });
     sender.listen(service, done);
-    crawler.on('receive', function(err, data) {
+    crawler.on('receive', function(error, data) {
       service.send(data);
     });
     nock('https://api.github.com').get('/events').reply(200, [ { type: 'OK' } ]);

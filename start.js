@@ -11,18 +11,18 @@ var NotHubStream = require('./')
     }
   })
 
-service.on('error', function(err, detail) {
-  console.log('\033[31mService error\033[39m: ', err);
+service.on('error', function(error, detail) {
+  console.log('\033[31mService error\033[39m: ', error);
 });
 
 sender.listen(service);
 
-crawler.on('receive', function(err, data) {
-  if (!err) service.send(data);
+crawler.on('receive', function(error, data) {
+  if (!error) service.send(data);
 });
 
-crawler.on('error', function(err, data) {
-  console.log('\033[31mCrawler error\033[39m: ', err, data);
+crawler.on('error', function(error, data) {
+  console.log('\033[31mCrawler error\033[39m: ', error, data);
 });
 
 crawler.crawl(1000);

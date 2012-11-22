@@ -33,7 +33,7 @@ describe('Sender', function() {
 
     it('should accept query', function(done) {
       var socket = io.connect('http://localhost:' + port);
-      sender.on('query-update', function(err, id, query) {
+      sender.on('query-update', function(error, id, query) {
         expect(query).to.eql({ type: 'OK' });
         done();
       });

@@ -10,7 +10,7 @@ describe('Stream', function() {
     });
 
     it('should send data to client', function(done) {
-      stream.on('data-receive', function(err, data) {
+      stream.on('data-receive', function(error, data) {
         expect(data).to.eql({ type: 'OK' });
         done();
       });
