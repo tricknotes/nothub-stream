@@ -7,7 +7,7 @@ describe('Stream', function() {
 
   describe('#send()', function() {
     beforeEach(function() {
-      stream = new Stream;
+      stream = new Stream();
     });
 
     it('should send data to client', function(done) {
@@ -30,7 +30,7 @@ describe('Stream', function() {
   describe('check duplicated count', function() {
     it('should be default 40', function() {
       var count, i;
-      stream = new Stream;
+      stream = new Stream();
       stream.send({ message: 'GOOD' });
       i = 0;
       stream.on('data-receive', function() {
