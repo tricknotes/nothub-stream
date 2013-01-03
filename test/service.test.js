@@ -3,7 +3,9 @@ var expect = require('chai').expect
   ;
 
 describe('Service', function() {
-  var service = null;
+  var service = null
+    , clientId = 'test'
+    ;
 
   beforeEach(function() {
     service = new Service();
@@ -11,25 +13,25 @@ describe('Service', function() {
 
   describe('#connect()', function() {
     it('should connect client', function() {
-      service.connect('test', null, function() {});
+      service.connect(clientId, null, function() {});
       expect(service.clientCount()).to.eql(1);
     });
 
     it('should update query', function() {
-      service.connect('test', { type: 'OK' }, function() {});
-      expect(service.clients['test'].query).to.eql({ type: 'OK' });
+      service.connect(clientId, { type: 'OK' }, function() {});
+      expect(service.clients[clientId].query).to.eql({ type: 'OK' });
     });
 
     it('should not update query when query is empty', function() {
-      service.connect('test', null, function() {});
-      expect(service.clients['test']).to.eql(undefined);
+      service.connect(clientId, null, function() {});
+      expect(service.clients[clientId]).to.eql(undefined);
     });
   });
 
   describe('#disconnect()', function() {
     it('should disconnect client', function() {
-      service.connect('test', null, function() {});
-      service.disconnect('test');
+      service.connect(clientId, null, function() {});
+      service.disconnect(clientId);
       expect(service.clientCount()).to.eql(0);
     });
 
@@ -41,22 +43,22 @@ describe('Service', function() {
 
   describe('#updateSchema()', function() {
     it('should update query', function() {
-      service.connect('test', null, function() {});
-      service.updateSchema('test', { name: 'TEST' });
-      expect(service.clients['test'].query).to.eql({ name: 'TEST' });
+      service.connect(clientId, null, function() {});
+      service.updateSchema(clientId, { name: 'TEST' });
+      expect(service.clients[clientId].query).to.eql({ name: 'TEST' });
     });
   });
 
   describe('#send()', function() {
     it('should send connected client', function(done) {
-      service.connect('test', { name: 'TEST' }, done);
+      service.connect(clientId, { name: 'TEST' }, done);
       service.send({ name: 'TEST' });
     });
 
     it('should skip without query', function(done) {
-      service.connect('test', null, done);
+      service.connect(clientId, null, done);
       service.send({ type: 'NG' });
-      service.updateSchema('test', { type: 'TEST' });
+      service.updateSchema(clientId, { type: 'TEST' });
       service.send({ type: 'TEST' });
     });
   });
