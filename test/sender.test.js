@@ -1,7 +1,5 @@
 var net = require('net')
-  , http = require('http')
   , expect = require('chai').expect
-  , nock = require('nock')
   , io = require('socket.io-client')
   , Service = require('../lib/service')
   , Sender = require('../lib/sender')
