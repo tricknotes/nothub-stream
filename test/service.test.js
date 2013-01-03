@@ -1,5 +1,6 @@
 var expect = require('chai').expect
   , Service = require('../lib/service')
+  ;
 
 describe('Service', function() {
   var service = null;

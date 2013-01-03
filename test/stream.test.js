@@ -1,5 +1,6 @@
 var expect = require('chai').expect
   , Stream = require('../lib/stream')
+  ;
 
 describe('Stream', function() {
   var stream = null;

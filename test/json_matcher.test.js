@@ -1,5 +1,6 @@
 var expect = require('chai').expect
   , JsonMatcher = require('../lib/json_matcher')
+  ;
 
 describe('JsonMatcher', function() {
   var matcher = null;
@@ -50,6 +51,7 @@ describe('JsonMatcher', function() {
   describe('advanced queries', function() {
     var A = JsonMatcher.advancedQueries
       , query
+      ;
 
     describe('#in()', function() {
       beforeEach(function() {

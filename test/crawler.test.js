@@ -1,6 +1,7 @@
 var expect = require('chai').expect
   , nock = require('nock')
   , Crawler = require('../lib/crawler')
+  ;
 
 describe('Crawler', function() {
   var crawler = null;
