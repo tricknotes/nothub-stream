@@ -1,0 +1,11 @@
+{
+    "laxcomma": true
+  , "expr": true
+  , "plusplus": false
+  , "es5" : true
+  , "evil": true
+  , "unused": true
+  , "strict": false
+  , "nonew": false
+  , "white": false
+}

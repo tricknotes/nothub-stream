@@ -5,12 +5,14 @@ var nock = require('nock')
   , Crawler = NotHubStream.Crawler
   , Service = NotHubStream.Service
   , Sender = NotHubStream.Sender
+  ;
 
 describe('NotHub Stream', function() {
   var crawler = null
     , service = null
     , sender = null
     , port = 20000
+    ;
 
   beforeEach(function(done) {
     crawler = new Crawler();

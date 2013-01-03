@@ -1,15 +1,15 @@
 var net = require('net')
-  , http = require('http')
   , expect = require('chai').expect
-  , nock = require('nock')
   , io = require('socket.io-client')
   , Service = require('../lib/service')
   , Sender = require('../lib/sender')
+  ;
 
 describe('Sender', function() {
   var service = null
     , sender = null
     , port = 13000
+    ;
 
   beforeEach(function() {
     service = new Service();

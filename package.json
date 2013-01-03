@@ -12,7 +12,7 @@
   }
   , "scripts": {
       "start": "node ./start.js"
-    , "test": "./node_modules/.bin/mocha --colors --reporter spec test/*/*.test.* test/*.test.*"
+    , "test": "./node_modules/.bin/mocha --colors --reporter spec test/*/*.test.* test/*.test.* && ./node_modules/.bin/jshint lib test"
   }
   , "dependencies": {
       "socket.io": "~> 0.9.6"
@@ -23,5 +23,6 @@
     , "chai": "~> 1.4.0"
     , "socket.io-client": "~> 0.9.6"
     , "nock": "~> 0.14.0"
+    , "jshint": "~> 0.9.1"
   }
 }
