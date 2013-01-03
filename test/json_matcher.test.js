@@ -59,21 +59,21 @@ describe('JsonMatcher', function() {
       });
 
       it('should be true when given contained value', function() {
-        expect(A.in('hi', query)).to.eql(true);
+        expect(A['in']('hi', query)).to.eql(true);
       });
 
       it('should be false when given not contained value', function() {
-        expect(A.in('nihao', query)).to.eql(false);
+        expect(A['in']('nihao', query)).to.eql(false);
       });
     });
 
     describe('#in() with invalid value', function() {
       it('should return false with Number', function() {
-        expect(A.in('1', 123)).to.eql(false);
+        expect(A['in']('1', 123)).to.eql(false);
       });
 
       it('should return false with null', function() {
-        expect(A.in('null', null)).to.eql(false);
+        expect(A['in']('null', null)).to.eql(false);
       });
     });
 
