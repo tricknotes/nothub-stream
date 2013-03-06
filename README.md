@@ -46,7 +46,7 @@ $ GITHUB_ACCESS_TOKEN="Your API Token" npm start
 ## Using on github:enterprise
 
 You can use `nothub` on [GitHub Enterprise](https://enterprise.github.com/) perhaps.
-(I have no testing environments. Sprry:-))
+(I have no testing environments. Sorry:-))
 
 1. Install `nothub` as a node module:
 ``` sh
