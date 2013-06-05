@@ -8,4 +8,5 @@
   , "strict": false
   , "nonew": false
   , "white": false
+  , "es5": false
 }
