@@ -16,13 +16,13 @@
   }
   , "dependencies": {
       "socket.io": "~> 0.9.6"
-    , "underscore": "~> 1.4.2"
+    , "underscore": "~> 1.5.1"
   }
   , "devDependencies": {
-      "mocha": "~> 1.10.0"
+      "mocha": "~> 1.11.0"
     , "chai": "~> 1.6.0"
     , "socket.io-client": "~> 0.9.6"
-    , "nock": "~> 0.18.0"
-    , "jshint": "~> 2.0.0"
+    , "nock": "~> 0.22.0"
+    , "jshint": "~> 2.1.0"
   }
 }
