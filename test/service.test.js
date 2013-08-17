@@ -51,15 +51,15 @@ describe('Service', function() {
 
   describe('#send()', function() {
     it('should send connected client', function(done) {
-      service.connect(clientId, { name: 'TEST' }, done);
-      service.send({ name: 'TEST' });
+      service.connect(clientId, { id: 1, name: 'TEST' }, done);
+      service.send({ id: 1, name: 'TEST' });
     });
 
     it('should skip without query', function(done) {
       service.connect(clientId, null, done);
-      service.send({ type: 'NG' });
+      service.send({ id: 1, type: 'NG' });
       service.updateSchema(clientId, { type: 'TEST' });
-      service.send({ type: 'TEST' });
+      service.send({ id: 2, type: 'TEST' });
     });
   });
 });
