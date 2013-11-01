@@ -14,6 +14,10 @@ describe('NotHub Stream', function() {
     , port = 20000
     ;
 
+  function fetchAsync(crawler) {
+    setTimeout(crawler.fetch.bind(crawler), 5); // `setImmediate` is too fast to be expected.
+  }
+
   beforeEach(function(done) {
     crawler = new Crawler();
     service = new Service();
@@ -36,7 +40,7 @@ describe('NotHub Stream', function() {
     var socket = io.connect('http://localhost:' + port);
     socket.on('connect', function() {
       socket.emit('query', {});
-      crawler.fetch();
+      fetchAsync(crawler);
     });
     socket.on('gh_event pushed', function(data) {
       expect(data).to.eql({ type: 'OK' });
@@ -49,12 +53,11 @@ describe('NotHub Stream', function() {
     socket.on('connect', function() {
       sender.once('query-update', function(error, id, query) {
         expect(query).to.eql({ type: 'NG' });
-        process.nextTick(function() {
-          crawler.fetch();
-        });
+        fetchAsync(crawler);
+
         sender.once('query-update', function(error, id, query) {
           expect(query).to.eql({ type: 'OK' });
-          crawler.fetch();
+          fetchAsync(crawler);
         });
         socket.emit('query', { type: 'OK' } );
       });
@@ -93,7 +96,8 @@ describe('NotHub Stream', function() {
     var startAssertion = function() {
       socket1.emit('query', { type: 'NG' });
       socket2.emit('query', { type: 'OK' });
-      crawler.fetch();
+
+      fetchAsync(crawler);
     };
 
     socket1.on('connect', function() {
