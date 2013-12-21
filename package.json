@@ -19,10 +19,10 @@
     , "underscore": "~> 1.5.1"
   }
   , "devDependencies": {
-      "mocha": "~> 1.13.0"
+      "mocha": "~> 1.16"
     , "chai": "~> 1.8.0"
     , "socket.io-client": "~> 0.9.16"
-    , "nock": "~> 0.22.0"
+    , "nock": "~> 0.27.0"
     , "jshint": "~> 2.3.0"
   }
 }
