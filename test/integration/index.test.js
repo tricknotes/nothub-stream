@@ -18,6 +18,10 @@ describe('NotHub Stream', function() {
     setTimeout(crawler.fetch.bind(crawler), 5); // `setImmediate` is too fast to be expected.
   }
 
+  function stubRequest(response) {
+    nock('https://api.github.com').get('/events').reply(200, response);
+  }
+
   beforeEach(function(done) {
     crawler = new Crawler();
     service = new Service();
@@ -26,7 +30,7 @@ describe('NotHub Stream', function() {
     crawler.on('receive', function(error, data) {
       service.send(data);
     });
-    nock('https://api.github.com').get('/events').reply(200, [ { type: 'OK' } ]);
+    stubRequest([ { id: '168', type: 'OK' } ]);
   });
 
   afterEach(function() {
@@ -43,7 +47,7 @@ describe('NotHub Stream', function() {
       fetchAsync(crawler);
     });
     socket.on('gh_event pushed', function(data) {
-      expect(data).to.eql({ type: 'OK' });
+      expect(data).to.eql({ id: '168', type: 'OK' });
       done();
     });
   });
@@ -57,6 +61,7 @@ describe('NotHub Stream', function() {
 
         sender.once('query-update', function(error, id, query) {
           expect(query).to.eql({ type: 'OK' });
+          stubRequest([ {id: '401', type: 'OK'} ]);
           fetchAsync(crawler);
         });
         socket.emit('query', { type: 'OK' } );
@@ -64,7 +69,7 @@ describe('NotHub Stream', function() {
       socket.emit('query', { type: 'NG' } );
     });
     socket.on('gh_event pushed', function(data) {
-      expect(data).to.eql({ type: "OK" });
+      expect(data).to.eql({ id: '401', type: "OK" });
       done();
     });
   });

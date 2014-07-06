@@ -15,14 +15,14 @@
     , "test": "mocha --colors --reporter spec test/*/*.test.* test/*.test.* && jshint lib test"
   }
   , "dependencies": {
-      "socket.io": "~> 0.9.16"
-    , "underscore": "~> 1.5.1"
+      "socket.io": "Automattic/socket.io"
+    , "underscore": "~> 1.6.0"
   }
   , "devDependencies": {
-      "mocha": "~> 1.16"
-    , "chai": "~> 1.8.0"
-    , "socket.io-client": "~> 0.9.16"
-    , "nock": "~> 0.27.0"
+      "mocha": "~> 1.20"
+    , "chai": "~> 1.9.1"
+    , "socket.io-client": "~> 1.0.6"
+    , "nock": "~> 0.41.0"
     , "jshint": "~> 2.4.0"
   }
 }
