@@ -34,7 +34,7 @@ $ npm test
 
 ## Authorization
 
-You can use github authorization, to use advansed rate limit.
+You can use github authorization, to use advanced rate limit.
 - http://developer.github.com/v3/oauth/
 
 Run using `GITHUB_ACCESS_TOKEN` as an environment variable:
@@ -60,7 +60,7 @@ $ npm install https://github.com/tricknotes/nothub-stream
 $ cp ./node_modules/nothub-stream/start.js ./start.js
 ```
 
-3. And edit `./start.js` to use dommain name for your github:enterprise.
+3. And edit `./start.js` to use domain name for your github:enterprise.
 For example:
 ``` diff
 - var NotHubStream = require('./')
