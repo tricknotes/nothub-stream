@@ -9,7 +9,7 @@ NotHub Stream is a Server of [NotHub](http://nothub.org)
 ``` sh
 $ git clone git://github.com/tricknotes/nothub-stream.git ./nothub-stream
 $ cd nothub-stream
-$ npm install .
+$ yarn install
 ```
 
 Edit config:
@@ -23,13 +23,13 @@ Write your setting to `./config/stream.config`.
 And run:
 
 ``` sh
-$ npm start
+$ yarn start
 ```
 
 ## Test
 
 ``` sh
-$ npm test
+$ yarn test
 ```
 
 ## Authorization
@@ -40,7 +40,7 @@ You can use github authorization, to use advanced rate limit.
 Run using `GITHUB_ACCESS_TOKEN` as an environment variable:
 
 ``` sh
-$ GITHUB_ACCESS_TOKEN="Your API Token" npm start
+$ GITHUB_ACCESS_TOKEN="Your API Token" yarn start
 ```
 
 ## Using on github:enterprise
@@ -52,7 +52,7 @@ You can use `nothub` on [GitHub Enterprise](https://enterprise.github.com/) perh
 ``` sh
 $ mkdir your_project
 $ cd your_project
-$ npm install https://github.com/tricknotes/nothub-stream
+$ yarn add https://github.com/tricknotes/nothub-stream
 ```
 
 2. Copy script for running nothub:
