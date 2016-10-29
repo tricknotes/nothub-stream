@@ -1,29 +1,29 @@
 {
-    "author": "tricknotes <tricknotes.rs@gmail.com> (https://github.com/tricknotes)"
-  , "name": "nothub-stream"
-  , "version": "0.4.11"
-  , "homepage": "http://nothub.org"
-  , "license": "MIT"
-  , "repository": {
-      "url": "git://github.com/tricknotes/nothub-stream.git"
-  }
-  , "main": "lib/index.js"
-  , "engines": {
-      "node": ">= 0.10.0"
-  }
-  , "scripts": {
-      "start": "node ./start.js"
-    , "test": "mocha --colors --reporter spec test/*/*.test.* test/*.test.* && jshint lib test"
-  }
-  , "dependencies": {
-      "socket.io": "~0.9.16"
-    , "underscore": "~1.8.3"
-  }
-  , "devDependencies": {
-      "mocha": "~2.3"
-    , "chai": "~3.4"
-    , "socket.io-client": "~0.9.16"
-    , "nock": "~7.0.2"
-    , "jshint": "~2.9.1"
-  }
+    "author": "tricknotes <tricknotes.rs@gmail.com> (https://github.com/tricknotes)",
+    "name": "nothub-stream",
+    "version": "0.4.11",
+    "homepage": "http://nothub.org",
+    "license": "MIT",
+    "repository": {
+        "url": "git://github.com/tricknotes/nothub-stream.git"
+    },
+    "main": "lib/index.js",
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "scripts": {
+        "start": "node ./start.js",
+        "test": "mocha --colors --reporter spec test/*/*.test.* test/*.test.* && jshint lib test"
+    },
+    "dependencies": {
+        "socket.io": "~0.9.16",
+        "underscore": "*"
+    },
+    "devDependencies": {
+        "chai": "*",
+        "jshint": "*",
+        "mocha": "*",
+        "nock": "*",
+        "socket.io-client": "~0.9.16"
+    }
 }
