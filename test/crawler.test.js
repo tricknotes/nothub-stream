@@ -67,7 +67,7 @@ describe('Crawler', function() {
     it('should emit "error" when JSON.parse faild', function(done) {
       crawler.on('error', function(error, data) {
         expect(data).to.eql('{');
-        expect(error.message).to.eql('Unexpected end of input');
+        expect(error.message).to.match(/^Unexpected end of/);
         done();
       });
       crawler.parseData('{');
