@@ -16,8 +16,7 @@
         "test": "mocha --colors --reporter spec test/*/*.test.* test/*.test.* && jshint lib test"
     },
     "dependencies": {
-        "socket.io": "~0.9.16",
-        "underscore": "*"
+        "socket.io": "~0.9.16"
     },
     "devDependencies": {
         "chai": "*",

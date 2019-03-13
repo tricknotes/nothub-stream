@@ -9,4 +9,5 @@
   , "nonew": false
   , "white": false
   , "es5": false
+  , "esversion": 6
 }
