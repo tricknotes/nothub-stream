@@ -1,8 +1,9 @@
-var expect = require('chai').expect,
-  nock = require('nock'),
-  Crawler = require('../lib/crawler');
+const expect = require('chai').expect;
+const nock = require('nock');
+const Crawler = require('../lib/crawler');
+
 describe('Crawler', function() {
-  var crawler = null;
+  let crawler = null;
 
   beforeEach(function() {
     crawler = new Crawler();
@@ -56,7 +57,7 @@ describe('Crawler', function() {
 
   describe('#parseData()', function() {
     it('should parse data', function() {
-      var data = crawler.parseData('[{"number": 1}, {"number": 2}]');
+      const data = crawler.parseData('[{"number": 1}, {"number": 2}]');
       expect(data).to.have.length(2);
       expect(data[0]).to.eql({number: 2});
       expect(data[1]).to.eql({number: 1});

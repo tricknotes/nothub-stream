@@ -1,7 +1,8 @@
-var expect = require('chai').expect,
-  Stream = require('../lib/stream');
+const expect = require('chai').expect;
+const Stream = require('../lib/stream');
+
 describe('Stream', function() {
-  var stream = null;
+  let stream = null;
 
   describe('#send()', function() {
     beforeEach(function() {
@@ -17,9 +18,8 @@ describe('Stream', function() {
     });
 
     it('should remove duplicated data', function(done) {
-      var i;
       stream.on('data-receive', done);
-      for (i = 1; i <= 2; i++) {
+      for (let i = 1; i <= 2; i++) {
         stream.send({type: 'OK'});
       }
     });
@@ -27,14 +27,13 @@ describe('Stream', function() {
 
   describe('check duplicated count', function() {
     it('should be default 40', function() {
-      var count, i;
       stream = new Stream();
       stream.send({id: 0, message: 'GOOD'});
-      i = 0;
+      let i = 0;
       stream.on('data-receive', function() {
         i += 1;
       });
-      for (count = 1; count < 40; count++) {
+      for (let count = 1; count < 40; count++) {
         stream.send({id: count, count: count});
       }
       expect(i).to.eql(39);

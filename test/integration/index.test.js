@@ -1,15 +1,17 @@
-var nock = require('nock'),
-  expect = require('chai').expect,
-  io = require('socket.io-client'),
-  NotHubStream = require('../../'),
-  Crawler = NotHubStream.Crawler,
-  Service = NotHubStream.Service,
-  Sender = NotHubStream.Sender;
+const nock = require('nock');
+const expect = require('chai').expect;
+const io = require('socket.io-client');
+const NotHubStream = require('../../');
+const Crawler = NotHubStream.Crawler;
+const Service = NotHubStream.Service;
+const Sender = NotHubStream.Sender;
+
 describe('NotHub Stream', function() {
-  var crawler = null,
-    service = null,
-    sender = null,
-    port = 20000;
+  let crawler = null;
+  let service = null;
+  let sender = null;
+  let port = 20000;
+
   function fetchAsync(crawler) {
     setTimeout(crawler.fetch.bind(crawler), 5); // `setImmediate` is too fast to be expected.
   }
@@ -39,7 +41,8 @@ describe('NotHub Stream', function() {
   });
 
   it('should receive all data without query', function(done) {
-    var socket = io.connect('http://localhost:' + port);
+    const socket = io.connect('http://localhost:' + port);
+
     socket.on('connect', function() {
       socket.emit('query', {});
       fetchAsync(crawler);
@@ -51,7 +54,8 @@ describe('NotHub Stream', function() {
   });
 
   it('should receive data matched to own query', function(done) {
-    var socket = io.connect('http://localhost:' + port);
+    const socket = io.connect('http://localhost:' + port);
+
     socket.on('connect', function() {
       sender.once('query-update', function(error, id, query) {
         expect(query).to.eql({type: 'NG'});
@@ -73,10 +77,12 @@ describe('NotHub Stream', function() {
   });
 
   it('should receive data own interested', function(done) {
-    var socket1 = io.connect('http://localhost:' + port);
-    var sender2 = new Sender(++port, {log: false});
+    const socket1 = io.connect('http://localhost:' + port);
+    const sender2 = new Sender(++port, {log: false});
+
     sender2.listen(service);
-    var socket2 = io.connect('http://localhost:' + port);
+
+    const socket2 = io.connect('http://localhost:' + port);
 
     socket1.on('gh_event pushed', function() {
       throw new Error('This sender should not be called.');
@@ -85,8 +91,8 @@ describe('NotHub Stream', function() {
       done();
     });
 
-    var connected = (function() {
-      var connetedClientCount = 0;
+    const connected = (function() {
+      let connetedClientCount = 0;
 
       return function(callback) {
         connetedClientCount += 1;
@@ -96,7 +102,7 @@ describe('NotHub Stream', function() {
       };
     })();
 
-    var startAssertion = function() {
+    const startAssertion = function() {
       socket1.emit('query', {type: 'NG'});
       socket2.emit('query', {type: 'OK'});
 

@@ -1,12 +1,14 @@
-var net = require('net'),
-  expect = require('chai').expect,
-  io = require('socket.io-client'),
-  Service = require('../lib/service'),
-  Sender = require('../lib/sender');
+const net = require('net');
+const expect = require('chai').expect;
+const io = require('socket.io-client');
+const Service = require('../lib/service');
+const Sender = require('../lib/sender');
+
 describe('Sender', function() {
-  var service = null,
-    sender = null,
-    port = 13000;
+  let service = null;
+  let sender = null;
+  let port = 13000;
+
   beforeEach(function() {
     service = new Service();
     sender = new Sender(++port, {log: false});
@@ -28,7 +30,8 @@ describe('Sender', function() {
     });
 
     it('should accept query', function(done) {
-      var socket = io.connect('http://localhost:' + port);
+      const socket = io.connect('http://localhost:' + port);
+
       sender.on('query-update', function(error, id, query) {
         expect(query).to.eql({type: 'OK'});
         done();
@@ -37,7 +40,8 @@ describe('Sender', function() {
     });
 
     it('should emit "pong" when "ping" received', function(done) {
-      var socket = io.connect('http://localhost:' + port);
+      const socket = io.connect('http://localhost:' + port);
+
       socket.on('pong', function(data) {
         expect(data).to.eql('hi');
         done();
@@ -46,7 +50,8 @@ describe('Sender', function() {
     });
 
     it('should remove sender when client disconnected', function(done) {
-      var socket = io.connect('http://localhost:' + port);
+      const socket = io.connect('http://localhost:' + port);
+
       socket.on('connect', function() {
         expect(service.clientCount()).to.eql(1);
         socket.disconnect();

@@ -1,8 +1,10 @@
-var expect = require('chai').expect,
-  Service = require('../lib/service');
+const expect = require('chai').expect;
+const Service = require('../lib/service');
+
 describe('Service', function() {
-  var service = null,
-    clientId = 'test';
+  const clientId = 'test';
+  let service = null;
+
   beforeEach(function() {
     service = new Service();
   });

@@ -1,7 +1,8 @@
-var expect = require('chai').expect,
-  JsonMatcher = require('../lib/json_matcher');
+const expect = require('chai').expect;
+const JsonMatcher = require('../lib/json_matcher');
+
 describe('JsonMatcher', function() {
-  var matcher = null;
+  let matcher = null;
 
   describe('#match() with simple queries', function() {
     beforeEach(function() {
@@ -47,8 +48,8 @@ describe('JsonMatcher', function() {
   });
 
   describe('advanced queries', function() {
-    var A = JsonMatcher.advancedQueries,
-      query;
+    const A = JsonMatcher.advancedQueries;
+    let query;
 
     describe('#in()', function() {
       beforeEach(function() {
