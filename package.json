@@ -21,7 +21,7 @@
     "devDependencies": {
         "chai": "*",
         "jshint": "*",
-        "mocha": "*",
+        "mocha": "3",
         "nock": "*",
         "socket.io-client": "~0.9.16"
     }
