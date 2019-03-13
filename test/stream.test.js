@@ -1,23 +1,23 @@
 const expect = require('chai').expect;
 const Stream = require('../lib/stream');
 
-describe('Stream', function() {
+describe('Stream', () => {
   let stream = null;
 
-  describe('#send()', function() {
-    beforeEach(function() {
+  describe('#send()', () => {
+    beforeEach(() => {
       stream = new Stream();
     });
 
-    it('should send data to client', function(done) {
-      stream.on('data-receive', function(error, data) {
+    it('should send data to client', (done) => {
+      stream.on('data-receive', (error, data) => {
         expect(data).to.eql({type: 'OK'});
         done();
       });
       stream.send({type: 'OK'});
     });
 
-    it('should remove duplicated data', function(done) {
+    it('should remove duplicated data', (done) => {
       stream.on('data-receive', done);
       for (let i = 1; i <= 2; i++) {
         stream.send({type: 'OK'});
@@ -25,12 +25,12 @@ describe('Stream', function() {
     });
   });
 
-  describe('check duplicated count', function() {
-    it('should be default 40', function() {
+  describe('check duplicated count', () => {
+    it('should be default 40', () => {
       stream = new Stream();
       stream.send({id: 0, message: 'GOOD'});
       let i = 0;
-      stream.on('data-receive', function() {
+      stream.on('data-receive', () => {
         i += 1;
       });
       for (let count = 1; count < 40; count++) {
@@ -44,7 +44,7 @@ describe('Stream', function() {
       expect(i).to.eql(41);
     });
 
-    it('should be set when stream initialized', function(done) {
+    it('should be set when stream initialized', (done) => {
       stream = new Stream(1);
       stream.send({id: 1, greeting: 'hi'});
       stream.send({id: 2, greeting: 'Good night'});
@@ -52,7 +52,7 @@ describe('Stream', function() {
       stream.send({id: 3, greeting: 'hi'});
     });
 
-    it('should be skip deplication check when 0', function(done) {
+    it('should be skip deplication check when 0', (done) => {
       stream = new Stream(0);
       stream.send({greeting: 'hi'});
       stream.on('data-receive', done);
