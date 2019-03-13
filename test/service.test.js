@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const Service = require('../lib/service');
 
 describe('Service', () => {

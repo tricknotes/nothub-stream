@@ -1,10 +1,7 @@
 const nock = require('nock');
-const expect = require('chai').expect;
+const {expect} = require('chai');
 const io = require('socket.io-client');
-const NotHubStream = require('../../');
-const Crawler = NotHubStream.Crawler;
-const Service = NotHubStream.Service;
-const Sender = NotHubStream.Sender;
+const {Crawler, Service, Sender} = require('../../');
 
 describe('NotHub Stream', () => {
   let crawler = null;

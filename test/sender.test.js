@@ -1,5 +1,5 @@
 const net = require('net');
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const io = require('socket.io-client');
 const Service = require('../lib/service');
 const Sender = require('../lib/sender');

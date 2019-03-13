@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const JsonMatcher = require('../lib/json_matcher');
 
 describe('JsonMatcher', () => {

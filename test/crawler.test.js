@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 const nock = require('nock');
 const Crawler = require('../lib/crawler');
 
