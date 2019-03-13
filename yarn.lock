@@ -915,16 +915,17 @@ socket.io-client@0.9.16:
     ws "0.4.x"
     xmlhttprequest "1.4.2"
 
-socket.io-client@~0.9.16:
+socket.io-client@~0.9.17:
   version "0.9.17"
   resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-0.9.17.tgz#31d12c44b73fbba349639eccf833e3f9ae13fe6f"
+  integrity sha1-MdEsRLc/u6NJY57M+DPj+a4T/m8=
   dependencies:
     active-x-obfuscator "0.0.1"
     uglify-js "1.2.5"
     ws "0.4.x"
     xmlhttprequest "1.4.2"
 
-socket.io@~0.9.16:
+socket.io@~0.9.19:
   version "0.9.19"
   resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-0.9.19.tgz#490bb5fd0dc54cf002ee04e67fadfc43b848a38f"
   integrity sha1-SQu1/Q3FTPAC7gTmf638Q7hIo48=
