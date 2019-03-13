@@ -1,12 +1,8 @@
-var expect = require('chai').expect
-  , Service = require('../lib/service')
-  ;
-
+var expect = require('chai').expect,
+  Service = require('../lib/service');
 describe('Service', function() {
-  var service = null
-    , clientId = 'test'
-    ;
-
+  var service = null,
+    clientId = 'test';
   beforeEach(function() {
     service = new Service();
   });
@@ -18,8 +14,8 @@ describe('Service', function() {
     });
 
     it('should update query', function() {
-      service.connect(clientId, { type: 'OK' }, function() {});
-      expect(service.clients[clientId].query).to.eql({ type: 'OK' });
+      service.connect(clientId, {type: 'OK'}, function() {});
+      expect(service.clients[clientId].query).to.eql({type: 'OK'});
     });
 
     it('should not update query when query is empty', function() {
@@ -44,22 +40,22 @@ describe('Service', function() {
   describe('#updateSchema()', function() {
     it('should update query', function() {
       service.connect(clientId, null, function() {});
-      service.updateSchema(clientId, { name: 'TEST' });
-      expect(service.clients[clientId].query).to.eql({ name: 'TEST' });
+      service.updateSchema(clientId, {name: 'TEST'});
+      expect(service.clients[clientId].query).to.eql({name: 'TEST'});
     });
   });
 
   describe('#send()', function() {
     it('should send connected client', function(done) {
-      service.connect(clientId, { id: 1, name: 'TEST' }, done);
-      service.send({ id: 1, name: 'TEST' });
+      service.connect(clientId, {id: 1, name: 'TEST'}, done);
+      service.send({id: 1, name: 'TEST'});
     });
 
     it('should skip without query', function(done) {
       service.connect(clientId, null, done);
-      service.send({ id: 1, type: 'NG' });
-      service.updateSchema(clientId, { type: 'TEST' });
-      service.send({ id: 2, type: 'TEST' });
+      service.send({id: 1, type: 'NG'});
+      service.updateSchema(clientId, {type: 'TEST'});
+      service.send({id: 2, type: 'TEST'});
     });
   });
 });

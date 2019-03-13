@@ -1,57 +1,54 @@
-var expect = require('chai').expect
-  , JsonMatcher = require('../lib/json_matcher')
-  ;
-
+var expect = require('chai').expect,
+  JsonMatcher = require('../lib/json_matcher');
 describe('JsonMatcher', function() {
   var matcher = null;
 
   describe('#match() with simple queries', function() {
     beforeEach(function() {
-      matcher = new JsonMatcher({ name: 'tricknotes' });
+      matcher = new JsonMatcher({name: 'tricknotes'});
     });
 
     it('should be true when given matched object', function() {
-      expect(matcher.match({ name: 'tricknotes' })).to.eql(true);
+      expect(matcher.match({name: 'tricknotes'})).to.eql(true);
     });
 
     it('should be false when given no property', function() {
-      expect(matcher.match({ age: 27 })).to.eql(false);
+      expect(matcher.match({age: 27})).to.eql(false);
     });
 
     it('should be false when given no value', function() {
-      expect(matcher.match({ name: null })).to.eql(false);
+      expect(matcher.match({name: null})).to.eql(false);
     });
 
     it('should be false when given mismatched value', function() {
-      expect(matcher.match({ name: 'tricknot' })).to.eql(false);
+      expect(matcher.match({name: 'tricknot'})).to.eql(false);
     });
   });
 
   describe('#match() with unsuported matcher', function() {
     it('should be false', function() {
-      matcher = new JsonMatcher({ value: { '$unsuported': 'Oops...:<' } });
-      expect(matcher.match({ value: 'd' })).to.eql(false);
+      matcher = new JsonMatcher({value: {$unsuported: 'Oops...:<'}});
+      expect(matcher.match({value: 'd'})).to.eql(false);
     });
   });
 
   describe('#match() with nested noexist matcher', function() {
     it('should be false', function() {
-      matcher = new JsonMatcher({ a: { b: 'oh...' } });
+      matcher = new JsonMatcher({a: {b: 'oh...'}});
       expect(matcher.match({})).to.eql(false);
     });
   });
 
   describe('#match() with noexist match as object', function() {
     it('should be false', function() {
-      matcher = new JsonMatcher({ "a": { "b": {} } });
+      matcher = new JsonMatcher({a: {b: {}}});
       expect(matcher.match({})).to.eql(false);
     });
   });
 
   describe('advanced queries', function() {
-    var A = JsonMatcher.advancedQueries
-      , query
-      ;
+    var A = JsonMatcher.advancedQueries,
+      query;
 
     describe('#in()', function() {
       beforeEach(function() {
@@ -147,8 +144,8 @@ describe('JsonMatcher', function() {
       });
 
       it('should be true with partial query', function() {
-        matcher = new JsonMatcher({ a: {'$contains': {b: 'OK'}} });
-        expect(matcher.match({ a: [{ b: 'OK', c: 'HOGE' }] })).to.eql(true);
+        matcher = new JsonMatcher({a: {$contains: {b: 'OK'}}});
+        expect(matcher.match({a: [{b: 'OK', c: 'HOGE'}]})).to.eql(true);
       });
     });
 
@@ -189,18 +186,18 @@ describe('JsonMatcher', function() {
     describe('#or() with nested matcher', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({
-          value: { '$or': [ { '$in': ['a', 'b'] }, 'c', { depth: 2 } ]}
+          value: {$or: [{$in: ['a', 'b']}, 'c', {depth: 2}]}
         });
       });
 
       it('should be true when nested matcher returns true', function() {
-        expect(matcher.match({ value: 'a' })).to.eql(true);
-        expect(matcher.match({ value: 'c' })).to.eql(true);
-        expect(matcher.match({ value: { depth: 2 } })).to.eql(true);
+        expect(matcher.match({value: 'a'})).to.eql(true);
+        expect(matcher.match({value: 'c'})).to.eql(true);
+        expect(matcher.match({value: {depth: 2}})).to.eql(true);
       });
 
       it('should be false when nested matcher returns false', function() {
-        expect(matcher.match({ value: 'd' })).to.eql(false);
+        expect(matcher.match({value: 'd'})).to.eql(false);
       });
     });
 
@@ -217,30 +214,30 @@ describe('JsonMatcher', function() {
     describe('#and() with nested matcher', function() {
       beforeEach(function() {
         matcher = new JsonMatcher({
-          value: { '$and': [ { '$nin': ['a', 'b'] }, { '$ne': 'c' } ] }
+          value: {$and: [{$nin: ['a', 'b']}, {$ne: 'c'}]}
         });
       });
 
       it('should be true when neted matcher returns true', function() {
-        expect(matcher.match({ value: 'd' })).to.eql(true);
+        expect(matcher.match({value: 'd'})).to.eql(true);
       });
 
       it('should be false when neted matcher returns false', function() {
-        expect(matcher.match({ value: 'a' })).to.eql(false);
-        expect(matcher.match({ value: 'c' })).to.eql(false);
+        expect(matcher.match({value: 'a'})).to.eql(false);
+        expect(matcher.match({value: 'c'})).to.eql(false);
       });
     });
   });
 
   describe('invalid queries', function() {
     it('should be false with unmatch matcher', function() {
-      matcher = new JsonMatcher({ value: { '$unmatch': 'ng' } });
-      expect(matcher.match({ value: 'ng' })).to.eql(false);
+      matcher = new JsonMatcher({value: {$unmatch: 'ng'}});
+      expect(matcher.match({value: 'ng'})).to.eql(false);
     });
 
     it('should be false with Object property', function() {
-      matcher = new JsonMatcher({ value: { '$toString': 'str' } });
-      expect(matcher.match({ value: 'str' })).to.eql(false);
+      matcher = new JsonMatcher({value: {$toString: 'str'}});
+      expect(matcher.match({value: 'str'})).to.eql(false);
     });
   });
 });

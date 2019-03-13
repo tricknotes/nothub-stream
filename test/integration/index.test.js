@@ -1,31 +1,29 @@
-var nock = require('nock')
-  , expect = require('chai').expect
-  , io = require('socket.io-client')
-  , NotHubStream = require('../../')
-  , Crawler = NotHubStream.Crawler
-  , Service = NotHubStream.Service
-  , Sender = NotHubStream.Sender
-  ;
-
+var nock = require('nock'),
+  expect = require('chai').expect,
+  io = require('socket.io-client'),
+  NotHubStream = require('../../'),
+  Crawler = NotHubStream.Crawler,
+  Service = NotHubStream.Service,
+  Sender = NotHubStream.Sender;
 describe('NotHub Stream', function() {
-  var crawler = null
-    , service = null
-    , sender = null
-    , port = 20000
-    ;
-
+  var crawler = null,
+    service = null,
+    sender = null,
+    port = 20000;
   function fetchAsync(crawler) {
     setTimeout(crawler.fetch.bind(crawler), 5); // `setImmediate` is too fast to be expected.
   }
 
   function stubEventsAPI() {
-    nock('https://api.github.com').get('/events').reply(200, [ { type: 'OK' } ]);
+    nock('https://api.github.com')
+      .get('/events')
+      .reply(200, [{type: 'OK'}]);
   }
 
   beforeEach(function(done) {
     crawler = new Crawler();
     service = new Service();
-    sender = new Sender(++port, { log: false });
+    sender = new Sender(++port, {log: false});
     sender.listen(service, done);
     crawler.on('receive', function(error, data) {
       service.send(data);
@@ -47,7 +45,7 @@ describe('NotHub Stream', function() {
       fetchAsync(crawler);
     });
     socket.on('gh_event pushed', function(data) {
-      expect(data).to.eql({ type: 'OK' });
+      expect(data).to.eql({type: 'OK'});
       done();
     });
   });
@@ -56,27 +54,27 @@ describe('NotHub Stream', function() {
     var socket = io.connect('http://localhost:' + port);
     socket.on('connect', function() {
       sender.once('query-update', function(error, id, query) {
-        expect(query).to.eql({ type: 'NG' });
+        expect(query).to.eql({type: 'NG'});
         fetchAsync(crawler);
 
         sender.once('query-update', function(error, id, query) {
-          expect(query).to.eql({ type: 'OK' });
+          expect(query).to.eql({type: 'OK'});
           stubEventsAPI();
           fetchAsync(crawler);
         });
-        socket.emit('query', { type: 'OK' } );
+        socket.emit('query', {type: 'OK'});
       });
-      socket.emit('query', { type: 'NG' } );
+      socket.emit('query', {type: 'NG'});
     });
     socket.on('gh_event pushed', function(data) {
-      expect(data).to.eql({ type: "OK" });
+      expect(data).to.eql({type: 'OK'});
       done();
     });
   });
 
   it('should receive data own interested', function(done) {
     var socket1 = io.connect('http://localhost:' + port);
-    var sender2 = new Sender(++port, { log: false });
+    var sender2 = new Sender(++port, {log: false});
     sender2.listen(service);
     var socket2 = io.connect('http://localhost:' + port);
 
@@ -99,8 +97,8 @@ describe('NotHub Stream', function() {
     })();
 
     var startAssertion = function() {
-      socket1.emit('query', { type: 'NG' });
-      socket2.emit('query', { type: 'OK' });
+      socket1.emit('query', {type: 'NG'});
+      socket2.emit('query', {type: 'OK'});
 
       fetchAsync(crawler);
     };
