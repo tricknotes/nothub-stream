@@ -1,15 +1,15 @@
-var NotHubStream = require('./')
-  , Service = NotHubStream.Service
-  , Sender = NotHubStream.Sender
-  , Crawler = NotHubStream.Crawler
-  , config = require('./config/stream')
-  , service = new Service()
-  , sender = new Sender(config.port)
-  , crawler = new Crawler({
+var NotHubStream = require('./'),
+  Service = NotHubStream.Service,
+  Sender = NotHubStream.Sender,
+  Crawler = NotHubStream.Crawler,
+  config = require('./config/stream'),
+  service = new Service(),
+  sender = new Sender(config.port),
+  crawler = new Crawler({
     query: {
       access_token: process.env['GITHUB_ACCESS_TOKEN']
     }
-  })
+  });
 
 service.on('error', function(error) {
   console.error('\033[31mService error\033[39m:');

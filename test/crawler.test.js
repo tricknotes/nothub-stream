@@ -1,21 +1,20 @@
-var expect = require('chai').expect
-  , nock = require('nock')
-  , Crawler = require('../lib/crawler')
-  ;
+const { expect } = require('chai');
+const nock = require('nock');
+const Crawler = require('../lib/crawler');
 
-describe('Crawler', function() {
-  var crawler = null;
+describe('Crawler', () => {
+  let crawler = null;
 
-  beforeEach(function() {
+  beforeEach(() => {
     crawler = new Crawler();
   });
 
-  afterEach(function() {
+  afterEach(() => {
     nock.cleanAll();
   });
 
-  describe('constructor', function() {
-    it('should accept costom host', function(done) {
+  describe('constructor', () => {
+    it('should accept costom host', (done) => {
       nock('https://example.com')
         .get('/events')
         .reply(200, [{}]);
@@ -24,7 +23,7 @@ describe('Crawler', function() {
       crawler.fetch();
     });
 
-    it('should accept costom path', function(done) {
+    it('should accept costom path', (done) => {
       nock('https://api.github.com')
         .get('/custom')
         .reply(200, [{}]);
@@ -33,7 +32,7 @@ describe('Crawler', function() {
       crawler.fetch();
     });
 
-    it('should accept original query', function(done) {
+    it('should accept original query', (done) => {
       nock('https://api.github.com')
         .get('/events?greet=hi')
         .reply(200, [{}]);
@@ -43,29 +42,29 @@ describe('Crawler', function() {
     });
   });
 
-  describe('#fetch()', function() {
-    it('should emit "receive" when crawl succeed', function(done) {
+  describe('#fetch()', () => {
+    it('should emit "receive" when crawl succeed', (done) => {
       nock('https://api.github.com')
         .get('/events')
-        .reply(200, [{ crawl: 'success' }]);
-      crawler.on('receive', function(error, data) {
-        expect(data).to.eql({ crawl: 'success' });
+        .reply(200, [{crawl: 'success'}]);
+      crawler.on('receive', (error, data) => {
+        expect(data).to.eql({crawl: 'success'});
         done();
       });
       crawler.fetch();
     });
   });
 
-  describe('#parseData()', function() {
-    it('should parse data', function() {
-      var data = crawler.parseData('[{"number": 1}, {"number": 2}]');
+  describe('#parseData()', () => {
+    it('should parse data', () => {
+      const data = crawler.parseData('[{"number": 1}, {"number": 2}]');
       expect(data).to.have.length(2);
-      expect(data[0]).to.eql({ number: 2 });
-      expect(data[1]).to.eql({ number: 1 });
+      expect(data[0]).to.eql({number: 2});
+      expect(data[1]).to.eql({number: 1});
     });
 
-    it('should emit "error" when JSON.parse faild', function(done) {
-      crawler.on('error', function(error, data) {
+    it('should emit "error" when JSON.parse faild', (done) => {
+      crawler.on('error', (error, data) => {
         expect(data).to.eql('{');
         expect(error.message).to.match(/^Unexpected end of/);
         done();
@@ -73,8 +72,8 @@ describe('Crawler', function() {
       crawler.parseData('{');
     });
 
-    it('should emit "error" when parsed data is not Array', function(done) {
-      crawler.on('error', function(error, data) {
+    it('should emit "error" when parsed data is not Array', (done) => {
+      crawler.on('error', (error, data) => {
         expect(data).to.eql('{}');
         expect(error.message).to.eql('Expected data format is Array');
         done();

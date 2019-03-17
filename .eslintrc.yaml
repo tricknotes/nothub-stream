@@ -1,0 +1,9 @@
+parserOptions:
+  ecmaVersion: 6
+rules:
+  semi: error
+  no-var: error
+  no-unused-vars: error
+  prefer-const: error
+env:
+  node: true

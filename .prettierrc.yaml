@@ -1,0 +1,5 @@
+singleQuote: true
+printWidth: 256
+semi: true
+bracketSpacing: false
+arrowParens: always

@@ -1,29 +1,30 @@
 {
-    "author": "tricknotes <tricknotes.rs@gmail.com> (https://github.com/tricknotes)",
-    "name": "nothub-stream",
-    "version": "0.4.11",
-    "homepage": "http://nothub.org",
-    "license": "MIT",
-    "repository": {
-        "url": "git://github.com/tricknotes/nothub-stream.git"
-    },
-    "main": "lib/index.js",
-    "engines": {
-        "node": ">= 4.0.0"
-    },
-    "scripts": {
-        "start": "node ./start.js",
-        "test": "mocha --colors --reporter spec test/*/*.test.* test/*.test.* && jshint lib test"
-    },
-    "dependencies": {
-        "socket.io": "~0.9.16",
-        "underscore": "*"
-    },
-    "devDependencies": {
-        "chai": "*",
-        "jshint": "*",
-        "mocha": "*",
-        "nock": "*",
-        "socket.io-client": "~0.9.16"
-    }
+  "author": "tricknotes <tricknotes.rs@gmail.com> (https://github.com/tricknotes)",
+  "name": "nothub-stream",
+  "version": "0.4.11",
+  "homepage": "http://nothub.org",
+  "license": "MIT",
+  "repository": {
+    "url": "git://github.com/tricknotes/nothub-stream.git"
+  },
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "scripts": {
+    "start": "node ./start.js",
+    "test": "mocha --colors --reporter spec test/*/*.test.* test/*.test.* && eslint lib test",
+    "fix": "prettier --write package.json *.js lib/**/*.js test/**/*.js && eslint --fix lib test"
+  },
+  "dependencies": {
+    "socket.io": "~0.9.19"
+  },
+  "devDependencies": {
+    "prettier": "*",
+    "chai": "*",
+    "eslint": "*",
+    "mocha": "3",
+    "nock": "*",
+    "socket.io-client": "~0.9.17"
+  }
 }
