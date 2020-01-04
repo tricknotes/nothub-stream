@@ -20,11 +20,11 @@
     "socket.io": "~0.9.19"
   },
   "devDependencies": {
-    "prettier": "*",
     "chai": "*",
     "eslint": "*",
     "mocha": "3",
     "nock": "*",
+    "prettier": "*",
     "socket.io-client": "~0.9.17"
   }
 }
