@@ -17,7 +17,7 @@
     "fix": "prettier --write package.json *.js lib/**/*.js test/**/*.js && eslint --fix lib test"
   },
   "dependencies": {
-    "socket.io": "~0.9.19"
+    "socket.io": "~2.4.0"
   },
   "devDependencies": {
     "chai": "*",
