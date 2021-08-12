@@ -40,6 +40,19 @@ describe('Crawler', () => {
       crawler.on('receive', done);
       crawler.fetch();
     });
+
+    it('should accept costom header', (done) => {
+      nock('https://api.github.com', {
+        reqheaders: {
+          'authorization': 'dummy',
+          'user-agent': 'NotHub - http://nothub.org',
+        }
+      }).get('/events')
+        .reply(200, [{}]);
+      crawler = new Crawler({headers: {'Authorization': 'dummy'}});
+      crawler.on('receive', done);
+      crawler.fetch();
+    });
   });
 
   describe('#fetch()', () => {
