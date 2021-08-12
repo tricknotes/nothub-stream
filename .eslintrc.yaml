@@ -1,5 +1,5 @@
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 2018
 rules:
   semi: error
   no-var: error
