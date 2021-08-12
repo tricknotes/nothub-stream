@@ -68,10 +68,10 @@ For example:
 ```
 ``` diff
   crawler = new Crawler({
-    query: {
-      access_token: process.env['GITHUB_ACCESS_TOKEN']
-+     host: 'yourdomain.com'
-    }
++   host: 'yourdomain.com',
+    headers: {
+      'Authorization': `token ${process.env['GITHUB_ACCESS_TOKEN']}`,
+    },
   });
 ```
 
