@@ -6,8 +6,8 @@ var NotHubStream = require('./'),
   service = new Service(),
   sender = new Sender(config.port),
   crawler = new Crawler({
-    query: {
-      access_token: process.env['GITHUB_ACCESS_TOKEN'],
+    headers: {
+      'Authorization': `token ${process.env['GITHUB_ACCESS_TOKEN']}`,
     },
   });
 
