@@ -7,7 +7,7 @@ const NotHubStream = require('./'),
   sender = new Sender(config.port),
   crawler = new Crawler({
     headers: {
-      'Authorization': `token ${process.env['GITHUB_ACCESS_TOKEN']}`,
+      Authorization: `token ${process.env['GITHUB_ACCESS_TOKEN']}`,
     },
   });
 
