@@ -63,8 +63,8 @@ $ cp ./node_modules/nothub-stream/start.js ./start.js
 3. And edit `./start.js` to use domain name for your github:enterprise.
 For example:
 ``` diff
-- var NotHubStream = require('./')
-+ var NotHubStream = require('nothub-stream')
+- const NotHubStream = require('./')
++ const NotHubStream = require('nothub-stream')
 ```
 ``` diff
   crawler = new Crawler({

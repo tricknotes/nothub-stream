@@ -1,4 +1,4 @@
-var NotHubStream = require('./'),
+const NotHubStream = require('./'),
   Service = NotHubStream.Service,
   Sender = NotHubStream.Sender,
   Crawler = NotHubStream.Crawler,
