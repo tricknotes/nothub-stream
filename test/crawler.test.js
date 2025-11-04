@@ -79,7 +79,7 @@ describe('Crawler', () => {
     it('should emit "error" when JSON.parse faild', (done) => {
       crawler.on('error', (error, data) => {
         expect(data).to.eql('{');
-        expect(error.message).to.match(/^Unexpected end of/);
+        expect(error.message).to.match(/^Unexpected end of|^Expected property name/);
         done();
       });
       crawler.parseData('{');
