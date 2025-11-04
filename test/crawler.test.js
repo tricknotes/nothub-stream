@@ -45,7 +45,7 @@ describe('Crawler', () => {
       nock('https://api.github.com', {
         reqheaders: {
           'authorization': 'dummy',
-          'user-agent': 'NotHub - http://nothub.org',
+          'user-agent': 'NotHub - https://nothub.org',
         }
       }).get('/events')
         .reply(200, [{}]);
