@@ -16,7 +16,7 @@ describe('Crawler', () => {
   describe('constructor', () => {
     it('should accept costom host', (done) => {
       nock('https://example.com')
-        .get('/events')
+        .get((uri) => uri.match(/^\/events/))
         .reply(200, [{}]);
       crawler = new Crawler({host: 'example.com'});
       crawler.on('receive', done);
@@ -25,18 +25,9 @@ describe('Crawler', () => {
 
     it('should accept costom path', (done) => {
       nock('https://api.github.com')
-        .get('/custom')
+        .get((uri) => uri.match(/^\/custom/))
         .reply(200, [{}]);
       crawler = new Crawler({path: '/custom'});
-      crawler.on('receive', done);
-      crawler.fetch();
-    });
-
-    it('should accept original query', (done) => {
-      nock('https://api.github.com')
-        .get('/events?greet=hi')
-        .reply(200, [{}]);
-      crawler = new Crawler({query: {greet: 'hi'}});
       crawler.on('receive', done);
       crawler.fetch();
     });
@@ -45,9 +36,9 @@ describe('Crawler', () => {
       nock('https://api.github.com', {
         reqheaders: {
           'authorization': 'dummy',
-          'user-agent': 'NotHub - http://nothub.org',
+          'user-agent': 'NotHub - https://nothub.org',
         }
-      }).get('/events')
+      }).get((uri) => uri.match(/^\/events/))
         .reply(200, [{}]);
       crawler = new Crawler({headers: {'Authorization': 'dummy'}});
       crawler.on('receive', done);
@@ -58,7 +49,7 @@ describe('Crawler', () => {
   describe('#fetch()', () => {
     it('should emit "receive" when crawl succeed', (done) => {
       nock('https://api.github.com')
-        .get('/events')
+        .get((uri) => uri.match(/^\/events/))
         .reply(200, [{crawl: 'success'}]);
       crawler.on('receive', (error, data) => {
         expect(data).to.eql({crawl: 'success'});

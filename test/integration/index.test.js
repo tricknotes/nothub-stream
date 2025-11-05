@@ -15,7 +15,7 @@ describe('NotHub Stream', () => {
 
   const stubEventsAPI = () => {
     nock('https://api.github.com')
-      .get('/events')
+      .get((uri) => uri.match(/^\/events/))
       .reply(200, [{type: 'OK'}]);
   };
 

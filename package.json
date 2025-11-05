@@ -2,7 +2,7 @@
   "author": "tricknotes <tricknotes.rs@gmail.com> (https://github.com/tricknotes)",
   "name": "nothub-stream",
   "version": "0.4.11",
-  "homepage": "http://nothub.org",
+  "homepage": "https://nothub.org",
   "license": "MIT",
   "repository": {
     "url": "git://github.com/tricknotes/nothub-stream.git"
