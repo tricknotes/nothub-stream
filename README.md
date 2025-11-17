@@ -1,6 +1,6 @@
 # NotHub Stream
 
-NotHub Stream is a Server of [NotHub](http://nothub.org)
+NotHub Stream is a Server of [NotHub](https://nothub.org)
 
 ## Setup
 
@@ -33,7 +33,7 @@ $ yarn test
 ## Authorization
 
 You can use github authorization, to use advanced rate limit.
-- http://developer.github.com/v3/oauth/
+- https://developer.github.com/v3/oauth/
 
 Run using `GITHUB_ACCESS_TOKEN` as an environment variable:
 
